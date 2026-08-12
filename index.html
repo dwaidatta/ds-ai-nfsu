@@ -13,6 +13,9 @@
     justify-content: center;
     align-items: center;
     font-family: sans-serif;
+    max-width: 500px;
+    margin: auto;
+    padding: 10px;
   }
   .main {
     text-align: center;
@@ -26,23 +29,36 @@
     flex-direction: column;
     gap: 20px;
   }
-  a {
+  .resource-button {
     background-color: bisque;
     padding: 20px;
     border: solid 2px black;
     font-size: 20px;
   }
+  .left-align-list {
+    text-align: justify;
+  }
+
 </style>
 
 <body>
   <div class="main">
     <h1>Guide for NFSU DS-AI Course</h1>
+    <h2>Resources</h2>
     <div class="main-buttons">
-      <a href="https://github.com/dwaidatta/ds-ai-nfsu" target="_blank">GitHub Repo</a>
-      <a href="Notebooks/Introduction_to_Python.html" target="_blank">Module 1</a>
+      <a class="resource-button" href="https://github.com/dwaidatta/ds-ai-nfsu" target="_blank">GitHub Repo</a>
+      <a class="resource-button" href="https://colab.research.google.com/drive/11vwktJTAfu2MWV13MNjNKua4OnMJH8Av?usp=sharing" target="_blank">Module 1</a>
       <!-- <a href="Notebooks/Introduction_to_Python.html" target="_blank">Module 2</a>
       <a href="Notebooks/Introduction_to_Python.html" target="_blank">Module 3</a> -->
     </div>
+    <h2>Classes</h2>
+    <ol class="left-align-list">
+      <li>Date: 10/08/2026/. Introduction to python, input output, variables, datatypes, operators (arithmetic, relational, logical).</li>
+    </ol>
+    <h2>Tasks</h2>
+    <ol class="left-align-list">
+      <li>Date: 12/08/2026. Go through Module 1 Notebook.</li>
+    </ol>
   </div>
 </body>
 </html>
