@@ -4,80 +4,283 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Guide for NFSU DS-AI</title>
-</head>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 <style>
+  :root {
+    --bg: #f6f5f2;
+    --surface: #ffffff;
+    --text: #1c1c1e;
+    --muted: #6b6b70;
+    --accent: #c9622f;
+    --accent-soft: #f4e3d7;
+    --border: #e5e2dc;
+    --radius: 14px;
+    --shadow: 0 1px 2px rgba(20, 20, 20, 0.04), 0 6px 20px rgba(20, 20, 20, 0.05);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #131314;
+      --surface: #1c1c1e;
+      --text: #f0efec;
+      --muted: #9a9a9e;
+      --accent: #e08a52;
+      --accent-soft: #3a2a1e;
+      --border: #2c2c2e;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.35);
+    }
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
   body {
+    margin: 0;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
-    font-family: sans-serif;
-    max-width: 500px;
-    margin: auto;
-    padding: 10px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
   }
-  .main {
-    /* text-align: center; */
-    /* margin: auto; */
+
+  /* ---------- Page shell: wraps everything ---------- */
+  .page {
+    width: 100%;
+    max-width: 560px;
+    padding: clamp(24px, 6vw, 56px) clamp(16px, 5vw, 28px);
   }
+
+  .page-header {
+    margin-bottom: clamp(28px, 6vw, 44px);
+  }
+
   h1 {
-    margin-bottom: 60px;
+    margin: 0;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
   }
+
+  .subtitle {
+    margin: 8px 0 0;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  /* ---------- Section: copy this whole block (including the
+     closing </section> tag) to add a new group of content ---------- */
+  .section {
+    margin-bottom: clamp(24px, 5vw, 36px);
+  }
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 14px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .section-title i {
+    font-size: 0.95rem;
+    color: var(--accent);
+  }
+
+  /* ---------- Button group: container for .resource-button items ---------- */
   .main-buttons {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
   }
+
+  /* ---------- Resource button: copy this <a> to add a new link ---------- */
   .resource-button {
-    background-color: bisque;
-    padding: 20px;
-    border: solid 2px black;
-    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 16px 18px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
   }
-  .left-align-list {
-    text-align: justify;
+
+  .resource-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
+
+  .resource-label i {
+    font-size: 1.1rem;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .resource-arrow {
+    color: var(--accent);
+    flex-shrink: 0;
+    transition: transform 0.15s ease;
+  }
+
+  .resource-button:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .resource-button:hover .resource-arrow {
+    transform: translateX(3px);
+  }
+
+  .resource-button:active {
+    transform: translateY(0);
+  }
+
+  /* ---------- Simple content card (e.g. the schedule list) ---------- */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 6px 18px;
+  }
+
+  .schedule-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: schedule;
+  }
+
+  .schedule-list li {
+    counter-increment: schedule;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 12px 0;
+    font-size: 0.95rem;
+  }
+
+  .schedule-list li + li {
+    border-top: 1px solid var(--border);
+  }
+
+  .schedule-list li::before {
+    content: counter(schedule);
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .schedule-note {
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+
+  /* ---------- Footer ---------- */
   .last-updated {
-    margin-top: 40px;
-    font-size: 12px;
-    color: gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin: 8px 0 0;
+    font-size: 0.75rem;
+    color: var(--muted);
     text-align: center;
   }
-
 </style>
+</head>
 
 <body>
-  <div class="main">
-    <h1>Guide for NFSU DS-AI Course</h1>
-    <h2>Resources</h2>
-    <div class="main-buttons">
-      <a class="resource-button" href="https://github.com/dwaidatta/ds-ai-nfsu" target="_blank">GitHub Repo</a>
-      <a class="resource-button" href="https://colab.research.google.com/drive/11vwktJTAfu2MWV13MNjNKua4OnMJH8Av?usp=sharing" target="_blank">Module 1</a>
-    </div>
-    <h2>Exercise</h2>
-    <div class="main-buttons">
-      <a class="resource-button" href="https://colab.research.google.com/drive/1jcuL_LbFLsnlaxBdGkXNkNhuUc4Ip5lU?usp=sharing" target="_blank">Practice Exercise Notebook</a>
-    </div>
-    <h2>Live Classes</h2>
-    <ol class="left-align-list">
-      <li>Date: 10/08/2026</li>
-      <li>Date: 16/08/2026</li>
-      <li>Date: 20/08/2026. Remedial class.</li>
-      <li>Date: 21/08/2026. Remedial class.</li>
-      <li>Date: 22/08/2026</li>
-    </ol>
+  <div class="page">
+
+    <header class="page-header">
+      <h1>Guide for NFSU DS-AI Course</h1>
+      <p class="subtitle">Links, exercises, and class schedule in one place.</p>
+    </header>
+
+    <!-- ============ SECTION: Resources ============ -->
+    <section class="section">
+      <h2 class="section-title"><i class="bi bi-link-45deg"></i> Resources</h2>
+      <div class="main-buttons">
+        <!-- Copy this <a> block to add another resource link -->
+        <a class="resource-button" href="https://github.com/dwaidatta/ds-ai-nfsu" target="_blank">
+          <span class="resource-label"><i class="bi bi-github"></i> GitHub Repo</span>
+          <i class="bi bi-arrow-right resource-arrow"></i>
+        </a>
+        <a class="resource-button" href="https://colab.research.google.com/drive/11vwktJTAfu2MWV13MNjNKua4OnMJH8Av?usp=sharing" target="_blank">
+          <span class="resource-label"><i class="bi bi-journal-code"></i> Module 1</span>
+          <i class="bi bi-arrow-right resource-arrow"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ SECTION: Exercise ============ -->
+    <section class="section">
+      <h2 class="section-title"><i class="bi bi-pencil-square"></i> Exercise</h2>
+      <div class="main-buttons">
+        <a class="resource-button" href="https://colab.research.google.com/drive/1jcuL_LbFLsnlaxBdGkXNkNhuUc4Ip5lU?usp=sharing" target="_blank">
+          <span class="resource-label"><i class="bi bi-journal-code"></i> Practice Exercise Notebook</span>
+          <i class="bi bi-arrow-right resource-arrow"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ SECTION: Live Classes ============ -->
+    <section class="section">
+      <h2 class="section-title"><i class="bi bi-calendar-week"></i> Live Classes</h2>
+      <div class="card">
+        <ol class="schedule-list">
+          <li><span>Date: 10/08/2026</span></li>
+          <li><span>Date: 16/08/2026</span></li>
+          <li><span>Date: 20/08/2026 <span class="schedule-note">— Remedial class</span></span></li>
+          <li><span>Date: 21/08/2026 <span class="schedule-note">— Remedial class</span></span></li>
+          <li><span>Date: 22/08/2026</span></li>
+        </ol>
+      </div>
+    </section>
+
     <p id="last-updated" class="last-updated"></p>
   </div>
 
   <script>
-    fetch('build-info.json?_=' + Date.now())
-      .then((res) => res.json())
+    // Reads the latest GitHub Release, which the deploy workflow creates on
+    // every manual run (see .github/workflows/deploy-pages.yml). No file in
+    // this repo needs to be committed to track the version/date.
+    fetch('https://api.github.com/repos/dwaidatta/ds-ai-nfsu/releases/latest')
+      .then((res) => (res.ok ? res.json() : Promise.reject()))
       .then((data) => {
         const el = document.getElementById('last-updated');
-        if (!el) return;
-        const date = new Date(data.date);
-        el.textContent = `Last updated: v${data.version} · ${date.toLocaleDateString()}`;
+        if (!el || !data.tag_name) return;
+        const date = new Date(data.published_at);
+        el.innerHTML = `<i class="bi bi-clock-history"></i> Last updated: ${data.tag_name} · ${date.toLocaleDateString()}`;
       })
       .catch(() => {});
   </script>
