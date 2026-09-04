@@ -76,6 +76,24 @@
     font-size: 0.95rem;
   }
 
+  .disclaimer {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 16px 0 0;
+    padding: 10px 14px;
+    background: var(--accent-soft);
+    border-radius: 10px;
+    color: var(--accent);
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+
+  .disclaimer i {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
   /* ---------- Section: copy this whole block (including the
      closing </section> tag) to add a new group of content ---------- */
   .section {
@@ -204,6 +222,208 @@
     font-size: 0.85rem;
   }
 
+  /* ---------- Live classes calendar ---------- */
+  .calendar-card {
+    padding: 14px 18px 18px;
+  }
+
+  .view-toggle {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+
+  .view-btn {
+    flex: 1;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    font-family: inherit;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .view-btn.active {
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .calendar-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .calendar-nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--accent);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+
+  .calendar-nav-btn:hover {
+    background: var(--accent-soft);
+  }
+
+  .calendar-nav-btn:disabled {
+    color: var(--muted);
+    opacity: 0.35;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .calendar-month-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    max-width: 260px;
+    margin: 0 auto;
+  }
+
+  .calendar-weekday {
+    text-align: center;
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-bottom: 4px;
+  }
+
+  .calendar-day {
+    position: relative;
+    aspect-ratio: 1;
+    width: 100%;
+    max-width: 30px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    color: var(--text);
+  }
+
+  .calendar-day.empty {
+    visibility: hidden;
+  }
+
+  .calendar-day.class-day {
+    background: var(--accent);
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .calendar-day.remedial-day {
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 700;
+    box-shadow: inset 0 0 0 1.5px var(--accent);
+  }
+
+  .calendar-legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .legend-swatch {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .legend-swatch.class-day {
+    background: var(--accent);
+  }
+
+  .legend-swatch.remedial-day {
+    background: var(--accent-soft);
+    box-shadow: inset 0 0 0 1.5px var(--accent);
+  }
+
+  /* ---------- Syllabus ---------- */
+  .syllabus-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .syllabus-module {
+    padding: 18px 20px;
+  }
+
+  .syllabus-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 12px;
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+
+  .syllabus-num {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .syllabus-body p {
+    margin: 0 0 10px;
+    font-size: 0.88rem;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .syllabus-body p:last-child {
+    margin-bottom: 0;
+  }
+
+  .syllabus-body strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
   /* ---------- Footer ---------- */
   .last-updated {
     display: flex;
@@ -223,7 +443,8 @@
 
     <header class="page-header">
       <h1>Guide for NFSU DS-AI Course</h1>
-      <p class="subtitle">Links, exercises, and class schedule in one place.</p>
+      <p class="subtitle">Links, exercises, and classes taken in one place.</p>
+      <p class="disclaimer"><i class="bi bi-info-circle"></i> This is an unofficial guide — not an official NFSU resource.</p>
     </header>
 
     <!-- ============ SECTION: Resources ============ -->
@@ -236,9 +457,46 @@
           <i class="bi bi-arrow-right resource-arrow"></i>
         </a>
         <a class="resource-button" href="https://colab.research.google.com/drive/11vwktJTAfu2MWV13MNjNKua4OnMJH8Av?usp=sharing" target="_blank">
-          <span class="resource-label"><i class="bi bi-journal-code"></i> Module 1</span>
+          <span class="resource-label"><i class="bi bi-journal-code"></i> Course Resource Notebook</span>
           <i class="bi bi-arrow-right resource-arrow"></i>
         </a>
+        <a class="resource-button" href="https://colab.research.google.com/drive/1GbcrCG3MMPGPSAVLWQBOtuzba5p3_NWr?usp=sharing" target="_blank">
+          <span class="resource-label"><i class="bi bi-journal-code"></i> Live Class Notebook</span>
+          <i class="bi bi-arrow-right resource-arrow"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ SECTION: Syllabus ============ -->
+    <section class="section">
+      <h2 class="section-title"><i class="bi bi-mortarboard"></i> Syllabus</h2>
+      <div class="syllabus-list">
+        <!-- Copy this .syllabus-module block to add another module -->
+        <div class="syllabus-module card">
+          <h3 class="syllabus-title"><span class="syllabus-num">1</span> Introduction to Python</h3>
+          <div class="syllabus-body">
+            <p><strong>Python:</strong> Setting up environment, basic python commands, creating python scripts, conditions, loops, list, dictionary, user defined functions, introduction to anaconda, working with numpy, pandas, matplotlib.</p>
+            <p><strong>Mathematics for machine learning:</strong> Vectors, matrices, linear equations, mean, median, mode, standard deviation, variance, probability, correlation, regression, handling and representing data.</p>
+          </div>
+        </div>
+
+        <div class="syllabus-module card">
+          <h3 class="syllabus-title"><span class="syllabus-num">2</span> Machine Learning</h3>
+          <div class="syllabus-body">
+            <p>Definition and history of AI, defining machine learning, applications of ML, issues and challenges in ML, types of ML, basics of supervised learning, prediction, classification, understanding datasets, feature selection, feature normalization, data cleaning, training, testing and validation sets.</p>
+            <p>Different models of supervised learning, hyper parameters, measuring performance, accuracy, loss, underfitting and overfitting.</p>
+            <p>Basics of unsupervised learning, different models of unsupervised learning.</p>
+          </div>
+        </div>
+
+        <div class="syllabus-module card">
+          <h3 class="syllabus-title"><span class="syllabus-num">3</span> Neural Network</h3>
+          <div class="syllabus-body">
+            <p>Understanding the biological brain, defining artificial neural networks (ANN), applications of ANN and DL, defining and building a perceptron, feed forward, back propagation, single-layer and multi-layer ANNs, building an ANN model, activation and loss functions, compiling and evaluating a model.</p>
+            <p>Convolutional neural networks (CNN), understanding convolutions, pooling, building and fitting CNN models, evaluating model performance.</p>
+            <p>Recurrent neural networks (RNN), basic architecture, applications of RNN, building and fitting RNN models, evaluating model performance. Long short term memory networks (LSTM), LSTM architecture, understanding LSTM, building LSTMs.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -253,17 +511,55 @@
       </div>
     </section>
 
+    <!-- ============ SECTION: Python Resources ============ -->
+    <section class="section">
+      <h2 class="section-title"><i class="bi bi-book"></i> Python Resources</h2>
+      <div class="main-buttons">
+        <a class="resource-button" href="https://livinnector.github.io/live-py-tutor/#mode=edit" target="_blank">
+          <span class="resource-label"><i class="bi bi-code-slash"></i> Live Py Tutor</span>
+          <i class="bi bi-arrow-right resource-arrow"></i>
+        </a>
+        <a class="resource-button" href="https://www.py4e.com/lessons" target="_blank">
+          <span class="resource-label"><i class="bi bi-mortarboard"></i> Py4E Lessons</span>
+          <i class="bi bi-arrow-right resource-arrow"></i>
+        </a>
+        <a class="resource-button" href="https://www.geeksforgeeks.org/python/introduction-to-python/" target="_blank">
+          <span class="resource-label"><i class="bi bi-file-earmark-text"></i> GeeksforGeeks — Intro to Python</span>
+          <i class="bi bi-arrow-right resource-arrow"></i>
+        </a>
+        <a class="resource-button" href="https://www.w3schools.com/python/python_reference.asp" target="_blank">
+          <span class="resource-label"><i class="bi bi-file-earmark-text"></i> W3Schools — Python Reference</span>
+          <i class="bi bi-arrow-right resource-arrow"></i>
+        </a>
+      </div>
+    </section>
+
     <!-- ============ SECTION: Live Classes ============ -->
     <section class="section">
       <h2 class="section-title"><i class="bi bi-calendar-week"></i> Live Classes</h2>
-      <div class="card">
-        <ol class="schedule-list">
-          <li><span>Date: 10/08/2026</span></li>
-          <li><span>Date: 16/08/2026</span></li>
-          <li><span>Date: 20/08/2026 <span class="schedule-note">— Remedial class</span></span></li>
-          <li><span>Date: 21/08/2026 <span class="schedule-note">— Remedial class</span></span></li>
-          <li><span>Date: 22/08/2026</span></li>
-        </ol>
+      <div class="card calendar-card">
+        <div class="view-toggle">
+          <button type="button" class="view-btn active" data-view="month">Month</button>
+          <button type="button" class="view-btn" data-view="list">List</button>
+        </div>
+
+        <div id="month-view">
+          <div class="calendar-nav">
+            <button type="button" id="cal-prev" class="calendar-nav-btn" aria-label="Previous month"><i class="bi bi-chevron-left"></i></button>
+            <div id="cal-title" class="calendar-month-title"></div>
+            <button type="button" id="cal-next" class="calendar-nav-btn" aria-label="Next month"><i class="bi bi-chevron-right"></i></button>
+          </div>
+          <div id="cal-grid" class="calendar-grid"></div>
+        </div>
+
+        <div id="list-view" style="display: none;">
+          <ol class="schedule-list" id="schedule-list"></ol>
+        </div>
+
+        <div class="calendar-legend">
+          <span class="legend-item"><span class="legend-swatch class-day"></span> Live class</span>
+          <span class="legend-item"><span class="legend-swatch remedial-day"></span> Remedial class</span>
+        </div>
       </div>
     </section>
 
@@ -271,6 +567,131 @@
   </div>
 
   <script>
+    // ---------- Live classes calendar ----------
+    // Edit this list to add/remove classes. Dates are DD/MM/YYYY.
+    const liveClasses = [
+      { date: '10/08/2026' },
+      { date: '16/08/2026' },
+      { date: '20/08/2026', note: 'Remedial class' },
+      { date: '21/08/2026', note: 'Remedial class' },
+      { date: '22/08/2026' },
+      { date: '27/08/2026' },
+      { date: '03/09/2026' },
+    ];
+
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'];
+    const weekdayLabels = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+
+    // "year-month" -> Map(day -> note|null)
+    const classDays = new Map();
+    liveClasses.forEach(({ date, note }) => {
+      const [d, m, y] = date.split('/').map(Number);
+      const key = `${y}-${m - 1}`;
+      if (!classDays.has(key)) classDays.set(key, new Map());
+      classDays.get(key).set(d, note || null);
+    });
+
+    const parsedEvents = liveClasses
+      .map(({ date, note }) => {
+        const [d, m, y] = date.split('/').map(Number);
+        return { dateObj: new Date(y, m - 1, d), note };
+      })
+      .sort((a, b) => a.dateObj - b.dateObj);
+
+    // Only the months that actually have a class in them, in chronological order.
+    const availableMonths = [...classDays.keys()]
+      .map((key) => {
+        const [y, m] = key.split('-').map(Number);
+        return { year: y, month: m };
+      })
+      .sort((a, b) => new Date(a.year, a.month) - new Date(b.year, b.month));
+
+    let calIndex = 0;
+
+    function renderMonthView() {
+      const titleEl = document.getElementById('cal-title');
+      const grid = document.getElementById('cal-grid');
+      const prevBtn = document.getElementById('cal-prev');
+      const nextBtn = document.getElementById('cal-next');
+      if (!titleEl || !grid || !availableMonths.length) return;
+
+      const { year: calYear, month: calMonth } = availableMonths[calIndex];
+
+      if (prevBtn) prevBtn.disabled = calIndex === 0;
+      if (nextBtn) nextBtn.disabled = calIndex === availableMonths.length - 1;
+
+      titleEl.textContent = `${monthNames[calMonth]} ${calYear}`;
+      grid.innerHTML = '';
+
+      weekdayLabels.forEach((label) => {
+        const el = document.createElement('div');
+        el.className = 'calendar-weekday';
+        el.textContent = label;
+        grid.appendChild(el);
+      });
+
+      const days = classDays.get(`${calYear}-${calMonth}`) || new Map();
+      const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+      const startOffset = new Date(calYear, calMonth, 1).getDay();
+
+      for (let i = 0; i < startOffset; i++) {
+        const el = document.createElement('div');
+        el.className = 'calendar-day empty';
+        grid.appendChild(el);
+      }
+
+      for (let d = 1; d <= daysInMonth; d++) {
+        const el = document.createElement('div');
+        el.className = 'calendar-day';
+        el.textContent = d;
+        if (days.has(d)) {
+          const note = days.get(d);
+          el.classList.add(note ? 'remedial-day' : 'class-day');
+          el.title = `${monthNames[calMonth]} ${d}, ${calYear}${note ? ' — ' + note : ' — Live class'}`;
+        }
+        grid.appendChild(el);
+      }
+    }
+
+    document.getElementById('cal-prev')?.addEventListener('click', () => {
+      if (calIndex > 0) calIndex -= 1;
+      renderMonthView();
+    });
+
+    document.getElementById('cal-next')?.addEventListener('click', () => {
+      if (calIndex < availableMonths.length - 1) calIndex += 1;
+      renderMonthView();
+    });
+
+    function renderListView() {
+      const list = document.getElementById('schedule-list');
+      if (!list) return;
+      list.innerHTML = '';
+      parsedEvents.forEach(({ dateObj, note }) => {
+        const li = document.createElement('li');
+        const weekday = dateObj.toLocaleDateString(undefined, { weekday: 'short' });
+        const formatted = `${weekday}, ${dateObj.getDate()} ${monthNames[dateObj.getMonth()].slice(0, 3)} ${dateObj.getFullYear()}`;
+        li.innerHTML = note
+          ? `<span>${formatted} <span class="schedule-note">— ${note}</span></span>`
+          : `<span>${formatted}</span>`;
+        list.appendChild(li);
+      });
+    }
+
+    document.querySelectorAll('.view-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.view-btn').forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        const isMonth = btn.dataset.view === 'month';
+        document.getElementById('month-view').style.display = isMonth ? '' : 'none';
+        document.getElementById('list-view').style.display = isMonth ? 'none' : '';
+      });
+    });
+
+    renderMonthView();
+    renderListView();
+
     // Reads the latest GitHub Release, which the deploy workflow creates on
     // every manual run (see .github/workflows/deploy-pages.yml). No file in
     // this repo needs to be committed to track the version/date.
