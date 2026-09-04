@@ -38,6 +38,12 @@
   .left-align-list {
     text-align: justify;
   }
+  .last-updated {
+    margin-top: 40px;
+    font-size: 12px;
+    color: gray;
+    text-align: center;
+  }
 
 </style>
 
@@ -61,6 +67,19 @@
       <li>Date: 21/08/2026. Remedial class.</li>
       <li>Date: 22/08/2026</li>
     </ol>
+    <p id="last-updated" class="last-updated"></p>
   </div>
+
+  <script>
+    fetch('build-info.json?_=' + Date.now())
+      .then((res) => res.json())
+      .then((data) => {
+        const el = document.getElementById('last-updated');
+        if (!el) return;
+        const date = new Date(data.date);
+        el.textContent = `Last updated: v${data.version} · ${date.toLocaleDateString()}`;
+      })
+      .catch(() => {});
+  </script>
 </body>
 </html>

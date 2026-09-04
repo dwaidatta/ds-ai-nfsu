@@ -1,0 +1,81 @@
+name: Deploy GitHub Pages (Manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: "Version part to bump"
+        required: true
+        type: choice
+        default: patch
+        options:
+          - patch
+          - minor
+          - major
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Bump build version and date
+        id: build_info
+        env:
+          BUMP: ${{ inputs.bump }}
+        run: |
+          FILE="build-info.json"
+          if [ -f "$FILE" ]; then
+            CURRENT=$(jq -r '.version // "0.0.0"' "$FILE")
+          else
+            CURRENT="0.0.0"
+          fi
+
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT"
+          MAJOR=${MAJOR:-0}; MINOR=${MINOR:-0}; PATCH=${PATCH:-0}
+
+          case "$BUMP" in
+            major) MAJOR=$((MAJOR + 1)); MINOR=0; PATCH=0 ;;
+            minor) MINOR=$((MINOR + 1)); PATCH=0 ;;
+            *)     PATCH=$((PATCH + 1)) ;;
+          esac
+
+          NEW_VERSION="${MAJOR}.${MINOR}.${PATCH}"
+          NOW=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          jq -n --arg version "$NEW_VERSION" --arg date "$NOW" \
+            '{version: $version, date: $date}' > "$FILE"
+          echo "version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
+          echo "date=$NOW" >> "$GITHUB_OUTPUT"
+
+      - name: Commit build info back to repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add build-info.json
+          git diff --cached --quiet || git commit -m "chore: bump build version to ${{ steps.build_info.outputs.version }} [skip ci]"
+          git push
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
