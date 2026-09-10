@@ -133,6 +133,93 @@
     font-weight: 600;
   }
 
+  /* ---------- Attempts panel (intro screen) ---------- */
+  #attempts-card { margin-top: 16px; }
+
+  .attempts-card-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 12px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .attempts-card-title i { font-size: 0.95rem; color: var(--accent); }
+
+  .attempts-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    margin: 0 0 12px;
+  }
+
+  .stat-chip {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--muted);
+  }
+
+  .stat-chip strong { color: var(--text); font-weight: 700; }
+
+  .attempts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .attempt-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 9px 10px;
+    margin: 0 -10px;
+    border-radius: 9px;
+    color: inherit;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: background 0.15s ease;
+  }
+
+  a.attempt-row:hover { background: var(--accent-soft); }
+
+  .attempt-row.is-disabled { opacity: 0.65; cursor: default; }
+
+  .attempt-row-icon {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+  }
+
+  .attempt-row-main { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .attempt-row-meta { color: var(--muted); font-size: 0.76rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .attempt-row-score {
+    flex-shrink: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+
+  .attempt-row-pct { font-weight: 800; font-size: 0.92rem; }
+  .attempt-row-marks { color: var(--muted); font-size: 0.76rem; }
+
+  .attempt-row.tone-good .attempt-row-icon { background: var(--good-soft); color: var(--good); }
+  .attempt-row.tone-good .attempt-row-pct { color: var(--good); }
+  .attempt-row.tone-mid .attempt-row-icon { background: var(--pastel-amber-bg); color: var(--pastel-amber-text); }
+  .attempt-row.tone-mid .attempt-row-pct { color: var(--pastel-amber-text); }
+  .attempt-row.tone-bad .attempt-row-icon { background: var(--bad-soft); color: var(--bad); }
+  .attempt-row.tone-bad .attempt-row-pct { color: var(--bad); }
+
   .btn {
     display: inline-flex;
     align-items: center;
@@ -558,6 +645,12 @@
         </p>
         <button class="btn" id="start-btn"><i class="bi bi-play-fill"></i> Start Quiz</button>
       </div>
+
+      <div class="card" id="attempts-card" style="display:none;">
+        <h2 class="attempts-card-title"><i class="bi bi-clock-history"></i> Your Attempts</h2>
+        <div class="attempts-summary" id="attempts-summary"></div>
+        <div class="attempts-list" id="attempts-list"></div>
+      </div>
     </div>
 
     <!-- ============ Quiz screen ============ -->
@@ -677,7 +770,7 @@
       quizId = entry.quizId;
       attemptSrc = entry.src || null;
 
-      renderQuiz();
+      renderQuiz(false);
 
       Object.entries(entry.answers || {}).forEach(([key, val]) => {
         const qi = Number(key);
@@ -797,6 +890,81 @@
       document.getElementById('quiz-description').textContent = quizData.description || '';
       document.getElementById('meta-count').textContent = quizData.questions.length;
       document.getElementById('meta-marks').textContent = totalMarks();
+      renderAttemptsPanel();
+    }
+
+    function scoreTone(pct) {
+      if (pct >= 80) return 'tone-good';
+      if (pct >= 50) return 'tone-mid';
+      return 'tone-bad';
+    }
+
+    function fmtDateTime(iso) {
+      const d = new Date(iso);
+      const date = d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+      const time = d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
+      return `${date} · ${time}`;
+    }
+
+    function fmtDurationShort(ms) {
+      if (!ms || ms < 0) return null;
+      const totalSeconds = Math.round(ms / 1000);
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+      return minutes > 0 ? `${minutes}m ${seconds}s` : `${seconds}s`;
+    }
+
+    function renderAttemptRow(h) {
+      const hasDetail = Array.isArray(h.questions) && h.questions.length;
+      const row = document.createElement(hasDetail ? 'a' : 'div');
+      row.className = `attempt-row ${scoreTone(h.pct)}${hasDetail ? '' : ' is-disabled'}`;
+      if (hasDetail) row.href = `take.html?attempt=${encodeURIComponent(h.id)}`;
+
+      const metaParts = [fmtDateTime(h.date)];
+      const durationLabel = fmtDurationShort(h.durationMs);
+      if (durationLabel) metaParts.push(durationLabel);
+      if (!hasDetail) metaParts.push('summary only');
+
+      row.innerHTML = `
+        <span class="attempt-row-icon"><i class="bi bi-check2-circle"></i></span>
+        <span class="attempt-row-main">
+          <span class="attempt-row-meta"></span>
+        </span>
+        <span class="attempt-row-score">
+          <span class="attempt-row-pct"></span>
+          <span class="attempt-row-marks"></span>
+        </span>
+      `;
+      row.querySelector('.attempt-row-meta').textContent = metaParts.join(' · ');
+      row.querySelector('.attempt-row-pct').textContent = `${h.pct}%`;
+      row.querySelector('.attempt-row-marks').textContent = `${h.earned}/${h.total}`;
+      return row;
+    }
+
+    // Shows every saved attempt for this specific quiz on its own intro
+    // screen, each reopenable for review/share/PDF via take.html?attempt=.
+    function renderAttemptsPanel() {
+      const card = document.getElementById('attempts-card');
+      const history = QuizStorage.getHistory().filter((h) => h.quizId === quizId);
+      if (!history.length) {
+        card.style.display = 'none';
+        return;
+      }
+
+      const sorted = [...history].sort((a, b) => new Date(b.date) - new Date(a.date));
+      const best = Math.max(...history.map((h) => h.pct));
+
+      document.getElementById('attempts-summary').innerHTML = `
+        <span class="stat-chip">Attempts: <strong>${history.length}</strong></span>
+        <span class="stat-chip">Best: <strong>${best}%</strong></span>
+        <span class="stat-chip">Last: <strong>${fmtDateTime(sorted[0].date)}</strong></span>
+      `;
+
+      const list = document.getElementById('attempts-list');
+      list.innerHTML = '';
+      sorted.forEach((h) => list.appendChild(renderAttemptRow(h)));
+
+      card.style.display = 'block';
     }
 
     document.getElementById('start-btn').addEventListener('click', async () => {
@@ -840,7 +1008,17 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    function renderQuiz() {
+    // Fisher-Yates shuffle; returns a new array, leaves the input untouched.
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function renderQuiz(shuffleOptions = true) {
       const form = document.getElementById('quiz-form');
       form.innerHTML = '';
       userAnswers.clear();
@@ -884,7 +1062,8 @@
         const opts = document.createElement('div');
         opts.className = qType === 'true_false' ? 'options options-row' : 'options';
 
-        q.options.forEach((opt) => {
+        const optionList = (shuffleOptions && qType !== 'true_false') ? shuffle(q.options) : q.options;
+        optionList.forEach((opt) => {
           const label = document.createElement('label');
           label.className = 'option';
           const input = document.createElement('input');

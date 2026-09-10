@@ -269,45 +269,6 @@
     gap: 10px;
   }
 
-  .quiz-card-item {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .attempts-toggle {
-    align-self: flex-start;
-    margin-left: 4px;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: none;
-    border: none;
-    padding: 2px 0;
-    color: var(--muted);
-    font-family: inherit;
-    font-size: 0.76rem;
-    font-weight: 600;
-    cursor: pointer;
-  }
-
-  .attempts-toggle:hover { color: var(--accent); }
-  .attempts-toggle i { color: var(--accent); font-size: 0.7rem; transition: transform 0.15s ease; }
-  .attempts-toggle.open i { transform: rotate(180deg); }
-
-  .attempts-panel {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    margin: 2px 0 0;
-    padding: 6px 10px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-  }
-
-  .attempts-panel[hidden] { display: none; }
-
   .quiz-card {
     display: block;
     background: var(--surface);
@@ -557,11 +518,10 @@
       return 'tone-bad';
     }
 
-    // Single row component shared by the dashboard's Recent Activity list and
-    // each quiz card's expandable attempts panel, so both look and behave
-    // consistently. Rows for attempts saved before detailed history was added
-    // (no per-question snapshot) render as plain, non-clickable summaries.
-    function renderAttemptRow(h, { showTitle = true } = {}) {
+    // Row component for the dashboard's Recent Activity list. Rows for
+    // attempts saved before detailed history was added (no per-question
+    // snapshot) render as plain, non-clickable summaries.
+    function renderAttemptRow(h) {
       const hasDetail = Array.isArray(h.questions) && h.questions.length;
       const row = document.createElement(hasDetail ? 'a' : 'div');
       row.className = `attempt-row ${scoreTone(h.pct)}${hasDetail ? '' : ' is-disabled'}`;
@@ -575,7 +535,7 @@
       row.innerHTML = `
         <span class="attempt-row-icon"><i class="bi bi-check2-circle"></i></span>
         <span class="attempt-row-main">
-          ${showTitle ? '<span class="attempt-row-title"></span>' : ''}
+          <span class="attempt-row-title"></span>
           <span class="attempt-row-meta"></span>
         </span>
         <span class="attempt-row-score">
@@ -583,7 +543,7 @@
           <span class="attempt-row-marks"></span>
         </span>
       `;
-      if (showTitle) row.querySelector('.attempt-row-title').textContent = h.quizTitle;
+      row.querySelector('.attempt-row-title').textContent = h.quizTitle;
       row.querySelector('.attempt-row-meta').textContent = metaParts.join(' · ');
       row.querySelector('.attempt-row-pct').textContent = `${h.pct}%`;
       row.querySelector('.attempt-row-marks').textContent = `${h.earned}/${h.total}`;
@@ -642,7 +602,7 @@
       if (recent.length) {
         const recentList = document.getElementById('recent-list');
         recent.forEach((h) => {
-          recentList.appendChild(renderAttemptRow(h, { showTitle: true }));
+          recentList.appendChild(renderAttemptRow(h));
         });
       }
 
@@ -673,9 +633,6 @@
       }
 
       quizzes.forEach(({ file, data }) => {
-        const wrap = document.createElement('div');
-        wrap.className = 'quiz-card-item';
-
         const a = document.createElement('a');
         a.className = 'quiz-card';
         a.href = `take.html?src=${encodeURIComponent(file)}`;
@@ -721,34 +678,7 @@
         a.querySelector('.quiz-card-title').textContent = data.title || 'Untitled quiz';
         a.querySelector('.quiz-card-meta').textContent = metaParts.join(' · ');
 
-        wrap.appendChild(a);
-
-        // A separate toggle + panel (siblings of the quiz-card anchor, not
-        // nested inside it) that expands to list every saved attempt for
-        // this quiz, each reopenable for review/share/PDF.
-        if (history.length) {
-          const sorted = [...history].sort((a2, b2) => new Date(b2.date) - new Date(a2.date));
-
-          const toggle = document.createElement('button');
-          toggle.type = 'button';
-          toggle.className = 'attempts-toggle';
-          toggle.innerHTML = `<i class="bi bi-chevron-down"></i> <span>${history.length} attempt${history.length > 1 ? 's' : ''} saved</span>`;
-
-          const panel = document.createElement('div');
-          panel.className = 'attempts-panel';
-          panel.hidden = true;
-          sorted.forEach((h) => panel.appendChild(renderAttemptRow(h, { showTitle: false })));
-
-          toggle.addEventListener('click', () => {
-            panel.hidden = !panel.hidden;
-            toggle.classList.toggle('open', !panel.hidden);
-          });
-
-          wrap.appendChild(toggle);
-          wrap.appendChild(panel);
-        }
-
-        listEl.appendChild(wrap);
+        listEl.appendChild(a);
       });
     }
 
