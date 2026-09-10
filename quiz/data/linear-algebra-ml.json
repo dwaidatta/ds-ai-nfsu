@@ -35,7 +35,7 @@
     },
     {
       "type": "mcq",
-      "question": "What does the transpose of a matrix, written A^T, do?",
+      "question": "What does the transpose of a matrix, written $A^T$, do?",
       "options": ["Swaps its rows and columns", "Multiplies every element by negative one", "Deletes every element below the main diagonal", "Adds a row of biases to the matrix"],
       "answer": "Swaps its rows and columns",
       "marks": 1
@@ -49,9 +49,9 @@
     },
     {
       "type": "mcq",
-      "question": "For a matrix A with dimensions (m × n) multiplied by a matrix B with dimensions (n × p), what are the dimensions of the resulting product AB?",
-      "options": ["m × p", "n × n", "m × n", "p × m"],
-      "answer": "m × p",
+      "question": "For a matrix $A$ with dimensions $(m \\times n)$ multiplied by a matrix $B$ with dimensions $(n \\times p)$, what are the dimensions of the resulting product $AB$?",
+      "options": ["$m \\times p$", "$n \\times n$", "$m \\times n$", "$p \\times m$"],
+      "answer": "$m \\times p$",
       "marks": 1
     },
     {
@@ -84,7 +84,7 @@
     },
     {
       "type": "mcq",
-      "question": "In linear regression, a system of linear equations Ax = b is used, where x represents:",
+      "question": "In linear regression, a system of linear equations $Ax = b$ is used, where $x$ represents:",
       "options": ["The unknown model parameters (weights) being solved for", "Only the known input feature values", "The final computed loss value", "The number of layers in the model"],
       "answer": "The unknown model parameters (weights) being solved for",
       "marks": 1
@@ -98,7 +98,7 @@
     },
     {
       "type": "true_false",
-      "question": "Every entry of a matrix product AB is itself computed as a dot product between one row of A and one column of B.",
+      "question": "Every entry of a matrix product $AB$ is itself computed as a dot product between one row of $A$ and one column of $B$.",
       "options": ["True", "False"],
       "answer": "True",
       "marks": 1

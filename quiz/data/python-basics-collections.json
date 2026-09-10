@@ -7,142 +7,249 @@
   "questions": [
     {
       "type": "mcq",
-      "question": "What sequence of numbers does range(5) generate?",
-      "options": ["1 to 5", "0 to 4", "0 to 5", "1 to 4"],
+      "question": "What sequence of numbers does `range(5)` generate?",
+      "options": [
+        "1 to 5",
+        "0 to 4",
+        "0 to 5",
+        "1 to 4"
+      ],
       "answer": "0 to 4",
       "marks": 1
     },
     {
       "type": "mcq",
-      "question": "What does range(2, 6) produce?",
-      "options": ["2, 3, 4, 5", "2, 3, 4, 5, 6", "0, 2, 4", "1, 2, 3, 4, 5"],
+      "question": "What does `range(2, 6)` produce?",
+      "options": [
+        "2, 3, 4, 5",
+        "2, 3, 4, 5, 6",
+        "0, 2, 4",
+        "1, 2, 3, 4, 5"
+      ],
       "answer": "2, 3, 4, 5",
       "marks": 1
     },
     {
       "type": "mcq",
-      "question": "What does range(1, 10, 2) produce?",
-      "options": ["1, 2, 3, 4, 5", "1, 3, 5, 7, 9", "2, 4, 6, 8", "1, 3, 5, 7, 9, 10"],
+      "question": "What does `range(1, 10, 2)` produce?",
+      "options": [
+        "1, 2, 3, 4, 5",
+        "1, 3, 5, 7, 9",
+        "2, 4, 6, 8",
+        "1, 3, 5, 7, 9, 10"
+      ],
       "answer": "1, 3, 5, 7, 9",
       "marks": 1
     },
     {
       "type": "mcq",
       "question": "Which loop repeats an action as long as a condition remains True, without needing a ready-made sequence?",
-      "options": ["for loop", "while loop", "range loop", "match-case"],
+      "options": [
+        "for loop",
+        "while loop",
+        "range loop",
+        "match-case"
+      ],
       "answer": "while loop",
       "marks": 1
     },
     {
       "type": "mcq",
-      "question": "What does len(\"Alice\") return?",
-      "options": ["4", "5", "6", "Error"],
+      "question": "What does `len(\"Alice\")` return?",
+      "options": [
+        "4",
+        "5",
+        "6",
+        "Error"
+      ],
       "answer": "5",
       "marks": 1
     },
     {
       "type": "mcq",
-      "question": "For name = \"Alice\", what does name[-1] give?",
-      "options": ["A", "e", "c", "Error"],
+      "question": "For `name = \"Alice\"`, what does `name[-1]` give?",
+      "options": [
+        "A",
+        "e",
+        "c",
+        "Error"
+      ],
       "answer": "e",
       "marks": 1
     },
     {
       "type": "mcq",
-      "question": "For word = \"Programming\", what does word[0:4] give?",
-      "options": ["Prog", "ramming", "Progr", "Programm"],
+      "question": "For `word = \"Programming\"`, what does `word[0:4]` give?",
+      "options": [
+        "Prog",
+        "ramming",
+        "Progr",
+        "Programm"
+      ],
       "answer": "Prog",
       "marks": 1
     },
     {
       "type": "mcq",
       "question": "Which of these collection types are immutable (\"sealed\"), meaning their contents cannot be changed after creation?",
-      "options": ["Strings and Tuples", "Lists and Dictionaries", "All four collection types", "None of them"],
+      "options": [
+        "Strings and Tuples",
+        "Lists and Dictionaries",
+        "All four collection types",
+        "None of them"
+      ],
       "answer": "Strings and Tuples",
       "marks": 1
     },
     {
       "type": "mcq",
-      "question": "Which error is raised when trying to modify a string or tuple element directly, e.g. name[0] = \"M\"?",
-      "options": ["KeyError", "IndexError", "TypeError", "ValueError"],
-      "answer": "TypeError",
+      "question": "Which error is raised when trying to modify a string or tuple element directly, e.g. `name[0] = \"M\"`?",
+      "options": [
+        "`KeyError`",
+        "`IndexError`",
+        "`TypeError`",
+        "`ValueError`"
+      ],
+      "answer": "`TypeError`",
       "marks": 1
     },
     {
       "type": "mcq",
-      "question": "Which error is raised when accessing a dictionary key that does not exist, e.g. student[\"salary\"]?",
-      "options": ["IndexError", "KeyError", "TypeError", "AttributeError"],
-      "answer": "KeyError",
+      "question": "Which error is raised when accessing a dictionary key that does not exist, e.g. `student[\"salary\"]`?",
+      "options": [
+        "`IndexError`",
+        "`KeyError`",
+        "`TypeError`",
+        "`AttributeError`"
+      ],
+      "answer": "`KeyError`",
       "marks": 1
     },
     {
       "type": "mcq",
       "question": "Which list method removes and returns the last item by default?",
-      "options": ["remove()", "pop()", "clear()", "index()"],
-      "answer": "pop()",
+      "options": [
+        "`remove()`",
+        "`pop()`",
+        "`clear()`",
+        "`index()`"
+      ],
+      "answer": "`pop()`",
       "marks": 1
     },
     {
       "type": "mcq",
       "question": "Which dictionary method safely returns a default value instead of raising an error for a missing key?",
-      "options": ["keys()", "items()", "get()", "update()"],
-      "answer": "get()",
+      "options": [
+        "`keys()`",
+        "`items()`",
+        "`get()`",
+        "`update()`"
+      ],
+      "answer": "`get()`",
       "marks": 1
     },
     {
       "type": "true_false",
-      "question": "Writing (5) with parentheses but no trailing comma still creates a tuple.",
-      "options": ["True", "False"],
+      "question": "Writing `(5)` with parentheses but no trailing comma still creates a tuple.",
+      "options": [
+        "True",
+        "False"
+      ],
       "answer": "False",
       "marks": 1
     },
     {
       "type": "true_false",
       "question": "Dictionaries are mutable, so key-value pairs can be updated or added after creation.",
-      "options": ["True", "False"],
+      "options": [
+        "True",
+        "False"
+      ],
       "answer": "True",
       "marks": 1
     },
     {
       "type": "true_false",
       "question": "By default, looping over a dictionary with a for loop iterates over its keys.",
-      "options": ["True", "False"],
+      "options": [
+        "True",
+        "False"
+      ],
       "answer": "True",
       "marks": 1
     },
     {
       "type": "true_false",
       "question": "len() counts the number of key-value pairs in a dictionary, not the keys and values separately.",
-      "options": ["True", "False"],
+      "options": [
+        "True",
+        "False"
+      ],
       "answer": "True",
       "marks": 1
     },
     {
       "type": "multi_select",
       "question": "Which of these collection types are MUTABLE (can be changed after creation)?",
-      "options": ["List", "Tuple", "Dictionary", "String"],
-      "answer": ["List", "Dictionary"],
+      "options": [
+        "List",
+        "Tuple",
+        "Dictionary",
+        "String"
+      ],
+      "answer": [
+        "List",
+        "Dictionary"
+      ],
       "marks": 1
     },
     {
       "type": "multi_select",
       "question": "Which of these support negative indexing?",
-      "options": ["String", "List", "Tuple", "Dictionary"],
-      "answer": ["String", "List", "Tuple"],
+      "options": [
+        "String",
+        "List",
+        "Tuple",
+        "Dictionary"
+      ],
+      "answer": [
+        "String",
+        "List",
+        "Tuple"
+      ],
       "marks": 1
     },
     {
       "type": "multi_select",
       "question": "Which of these can hold mixed datatypes together in a single collection?",
-      "options": ["List", "Tuple", "String", "Dictionary"],
-      "answer": ["List", "Tuple", "Dictionary"],
+      "options": [
+        "List",
+        "Tuple",
+        "String",
+        "Dictionary"
+      ],
+      "answer": [
+        "List",
+        "Tuple",
+        "Dictionary"
+      ],
       "marks": 1
     },
     {
       "type": "multi_select",
       "question": "Which of these list methods modify the list in place?",
-      "options": ["append()", "sort()", "reverse()", "index()"],
-      "answer": ["append()", "sort()", "reverse()"],
+      "options": [
+        "`append()`",
+        "`sort()`",
+        "`reverse()`",
+        "`index()`"
+      ],
+      "answer": [
+        "`append()`",
+        "`sort()`",
+        "`reverse()`"
+      ],
       "marks": 1
     }
   ]

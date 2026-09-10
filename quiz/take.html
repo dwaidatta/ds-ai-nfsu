@@ -9,7 +9,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" media="(prefers-color-scheme: dark)">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
 <style>
   :root {
@@ -382,6 +388,42 @@
     font-size: 0.95rem;
     font-weight: 600;
     line-height: 1.5;
+  }
+
+  .katex { color: inherit; font-size: 1.05em; }
+
+  code {
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 0.85em;
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 1px 5px;
+    border-radius: 5px;
+  }
+
+  pre {
+    margin: 8px 0;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: auto;
+  }
+
+  pre code.hljs {
+    display: block;
+    padding: 12px 14px;
+    font-size: 0.82rem;
+    background: var(--surface);
+    border-radius: 10px;
+  }
+
+  .question-image {
+    display: block;
+    max-width: 100%;
+    max-height: 360px;
+    object-fit: contain;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin: 2px 0 4px;
   }
 
   .options {
@@ -858,6 +900,56 @@
       });
     }
 
+    // Renders any $...$ / $$...$$ / \(...\) / \[...\] LaTeX found in el's text
+    // nodes in place, via KaTeX. Safe to call on a subtree right after its
+    // text content is (re)built.
+    function renderMath(el) {
+      if (window.renderMathInElement) {
+        renderMathInElement(el, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '\\[', right: '\\]', display: true },
+            { left: '$', right: '$', display: false },
+            { left: '\\(', right: '\\)', display: false },
+          ],
+          throwOnError: false,
+        });
+      }
+    }
+
+    // Converts `inline code` spans and ```lang\n...\n``` fenced blocks into
+    // <code>/<pre><code> markup, HTML-escaping everything else so stray
+    // <, >, & in question text can't break the page.
+    function renderCodeMarkup(text) {
+      const fenceRe = /```(\w*)\n?([\s\S]*?)```/g;
+      let out = '';
+      let lastIndex = 0;
+      let m;
+      while ((m = fenceRe.exec(text))) {
+        out += inlineCodeMarkup(text.slice(lastIndex, m.index));
+        const lang = m[1] || '';
+        const code = m[2].replace(/\n$/, '');
+        out += `<pre><code class="hljs${lang ? ` language-${lang}` : ''}">${escapeHtml(code)}</code></pre>`;
+        lastIndex = fenceRe.lastIndex;
+      }
+      out += inlineCodeMarkup(text.slice(lastIndex));
+      return out;
+    }
+
+    function inlineCodeMarkup(text) {
+      return escapeHtml(text).replace(/`([^`\n]+)`/g, (_, code) => `<code>${code}</code>`);
+    }
+
+    function setRichText(el, text) {
+      el.innerHTML = renderCodeMarkup(text || '');
+    }
+
+    function highlightCode(el) {
+      if (window.hljs) {
+        el.querySelectorAll('pre code').forEach((block) => hljs.highlightElement(block));
+      }
+    }
+
     function totalMarks() {
       return quizData.questions.reduce((sum, q) => sum + (q.marks || 1), 0);
     }
@@ -887,10 +979,12 @@
     function renderIntro() {
       document.title = `${quizData.title || 'Quiz'} — Guide for NFSU DS-AI`;
       document.getElementById('quiz-title').textContent = quizData.title || 'Quiz';
-      document.getElementById('quiz-description').textContent = quizData.description || '';
+      setRichText(document.getElementById('quiz-description'), quizData.description || '');
       document.getElementById('meta-count').textContent = quizData.questions.length;
       document.getElementById('meta-marks').textContent = totalMarks();
       renderAttemptsPanel();
+      highlightCode(introEl);
+      renderMath(introEl);
     }
 
     function scoreTone(pct) {
@@ -1045,7 +1139,7 @@
 
         const text = document.createElement('span');
         text.className = 'question-text';
-        text.textContent = q.question;
+        setRichText(text, q.question);
 
         main.appendChild(badge);
         main.appendChild(text);
@@ -1058,6 +1152,15 @@
         head.appendChild(num);
         head.appendChild(main);
         card.appendChild(head);
+
+        if (q.image) {
+          const img = document.createElement('img');
+          img.className = 'question-image';
+          img.src = q.image;
+          img.alt = q.imageAlt || '';
+          img.loading = 'lazy';
+          card.appendChild(img);
+        }
 
         const opts = document.createElement('div');
         opts.className = qType === 'true_false' ? 'options options-row' : 'options';
@@ -1072,7 +1175,7 @@
           input.value = opt;
 
           const span = document.createElement('span');
-          span.textContent = opt;
+          setRichText(span, opt);
           label.appendChild(input);
           label.appendChild(span);
 
@@ -1108,6 +1211,8 @@
         form.appendChild(card);
       });
 
+      highlightCode(form);
+      renderMath(form);
       updateProgress();
     }
 

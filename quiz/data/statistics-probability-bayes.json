@@ -77,14 +77,14 @@
     },
     {
       "type": "mcq",
-      "question": "A correlation coefficient of r = -0.9 indicates:",
+      "question": "A correlation coefficient of $r = -0.9$ indicates:",
       "options": ["A strong negative linear relationship", "A strong positive linear relationship", "No relationship at all between the variables", "An impossible/invalid value, since correlation cannot be negative"],
       "answer": "A strong negative linear relationship",
       "marks": 1
     },
     {
       "type": "mcq",
-      "question": "A correlation coefficient of r = 0 indicates:",
+      "question": "A correlation coefficient of $r = 0$ indicates:",
       "options": ["No linear relationship between the variables, though a non-linear relationship could still exist", "A perfect positive linear relationship", "A perfect negative linear relationship", "That the two variables are exactly identical"],
       "answer": "No linear relationship between the variables, though a non-linear relationship could still exist",
       "marks": 1
@@ -133,14 +133,14 @@
     },
     {
       "type": "multi_select",
-      "question": "In Bayes' theorem, P(A|B) = [P(B|A) · P(A)] / P(B), which of the following terms are correctly named?",
-      "options": ["P(A) is the prior probability", "P(B|A) is the likelihood", "P(A|B) is the posterior probability", "P(B) is called the likelihood"],
-      "answer": ["P(A) is the prior probability", "P(B|A) is the likelihood", "P(A|B) is the posterior probability"],
+      "question": "In Bayes' theorem, $$P(A|B) = \\frac{P(B|A) \\cdot P(A)}{P(B)}$$ which of the following terms are correctly named?",
+      "options": ["$P(A)$ is the prior probability", "$P(B|A)$ is the likelihood", "$P(A|B)$ is the posterior probability", "$P(B)$ is called the likelihood"],
+      "answer": ["$P(A)$ is the prior probability", "$P(B|A)$ is the likelihood", "$P(A|B)$ is the posterior probability"],
       "marks": 1
     },
     {
       "type": "multi_select",
-      "question": "Which of the following are true about conditional probability, P(A | B)?",
+      "question": "Which of the following are true about conditional probability, $P(A \\mid B)$?",
       "options": ["It is the probability of event A occurring, given that event B has already occurred", "Knowing that B occurred can change the estimated likelihood of A", "It is always exactly equal to the unconditional probability of A", "It restricts attention to the part of the sample space where B has occurred"],
       "answer": ["It is the probability of event A occurring, given that event B has already occurred", "Knowing that B occurred can change the estimated likelihood of A", "It restricts attention to the part of the sample space where B has occurred"],
       "marks": 1

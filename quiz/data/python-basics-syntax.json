@@ -7,142 +7,246 @@
   "questions": [
     {
       "type": "mcq",
-      "question": "What does print(\"Hello\", \"Alice\") output?",
-      "options": ["HelloAlice", "Hello Alice", "Hello, Alice", "Error"],
+      "question": "What does `print(\"Hello\", \"Alice\")` output?",
+      "options": [
+        "HelloAlice",
+        "Hello Alice",
+        "Hello, Alice",
+        "Error"
+      ],
       "answer": "Hello Alice",
       "marks": 1
     },
     {
       "type": "mcq",
       "question": "Which symbol starts a comment in Python?",
-      "options": ["//", "#", "--", "/*"],
-      "answer": "#",
+      "options": [
+        "`//`",
+        "`#`",
+        "`--`",
+        "`/*`"
+      ],
+      "answer": "`#`",
       "marks": 1
     },
     {
       "type": "mcq",
       "question": "What is the file extension for a Python script?",
-      "options": [".py", ".pt", ".ipynb", ".python"],
-      "answer": ".py",
+      "options": [
+        "`.py`",
+        "`.pt`",
+        "`.ipynb`",
+        "`.python`"
+      ],
+      "answer": "`.py`",
       "marks": 1
     },
     {
       "type": "mcq",
-      "question": "By default, what datatype does input() always return?",
-      "options": ["int", "float", "string", "boolean"],
+      "question": "By default, what datatype does `input()` always return?",
+      "options": [
+        "int",
+        "float",
+        "string",
+        "boolean"
+      ],
       "answer": "string",
       "marks": 1
     },
     {
       "type": "mcq",
-      "question": "Which built-in function returns the datatype of a value, e.g. ___(var1)?",
-      "options": ["type()", "input()", "print()", "int()"],
-      "answer": "type()",
+      "question": "Which built-in function returns the datatype of a value, e.g. `___(var1)`?",
+      "options": [
+        "`type()`",
+        "`input()`",
+        "`print()`",
+        "`int()`"
+      ],
+      "answer": "`type()`",
       "marks": 1
     },
     {
       "type": "mcq",
-      "question": "Which function explicitly converts a string into an integer, as in age = ___(input(\"Enter age: \"))?",
-      "options": ["type()", "str()", "int()", "input()"],
-      "answer": "int()",
+      "question": "Which function explicitly converts a string into an integer, as in `age = ___(input(\"Enter age: \"))`?",
+      "options": [
+        "`type()`",
+        "`str()`",
+        "`int()`",
+        "`input()`"
+      ],
+      "answer": "`int()`",
       "marks": 1
     },
     {
       "type": "mcq",
-      "question": "Which numeric datatype is written with a decimal point, e.g. 3.14?",
-      "options": ["int", "float", "complex", "str"],
-      "answer": "float",
+      "question": "Which numeric datatype is written with a decimal point, e.g. `3.14`?",
+      "options": [
+        "`int`",
+        "`float`",
+        "`complex`",
+        "`str`"
+      ],
+      "answer": "`float`",
       "marks": 1
     },
     {
       "type": "mcq",
-      "question": "What does the ** operator do?",
-      "options": ["Multiplication", "Floor division", "Exponent (raises to a power)", "Modulus"],
+      "question": "What does the `**` operator do?",
+      "options": [
+        "Multiplication",
+        "Floor division",
+        "Exponent (raises to a power)",
+        "Modulus"
+      ],
       "answer": "Exponent (raises to a power)",
       "marks": 1
     },
     {
       "type": "mcq",
-      "question": "What is the result of 5 // 2?",
-      "options": ["2", "2.5", "1", "3"],
+      "question": "What is the result of `5 // 2`?",
+      "options": [
+        "2",
+        "2.5",
+        "1",
+        "3"
+      ],
       "answer": "2",
       "marks": 1
     },
     {
       "type": "mcq",
-      "question": "Which operator category do ==, !=, >, and < belong to?",
-      "options": ["Arithmetic operators", "Comparison (relational) operators", "Logical operators", "Assignment operators"],
+      "question": "Which operator category do `==`, `!=`, `>`, and `<` belong to?",
+      "options": [
+        "Arithmetic operators",
+        "Comparison (relational) operators",
+        "Logical operators",
+        "Assignment operators"
+      ],
       "answer": "Comparison (relational) operators",
       "marks": 1
     },
     {
       "type": "mcq",
-      "question": "Which operator checks whether a value exists inside a sequence, e.g. 3 in [1, 2, 3]?",
-      "options": ["Identity operator", "Membership operator", "Assignment operator", "Comparison operator"],
+      "question": "Which operator checks whether a value exists inside a sequence, e.g. `3 in [1, 2, 3]`?",
+      "options": [
+        "Identity operator",
+        "Membership operator",
+        "Assignment operator",
+        "Comparison operator"
+      ],
       "answer": "Membership operator",
       "marks": 1
     },
     {
       "type": "mcq",
-      "question": "In the expression 2 + 3 * 2 ** 2, which operator is evaluated first?",
-      "options": ["+", "*", "**", "They evaluate left to right regardless"],
-      "answer": "**",
+      "question": "In the expression `2 + 3 * 2 ** 2`, which operator is evaluated first?",
+      "options": [
+        "`+`",
+        "`*`",
+        "`**`",
+        "They evaluate left to right regardless"
+      ],
+      "answer": "`**`",
       "marks": 1
     },
     {
       "type": "true_false",
       "question": "Python requires you to explicitly declare a variable's datatype before using it.",
-      "options": ["True", "False"],
+      "options": [
+        "True",
+        "False"
+      ],
       "answer": "False",
       "marks": 1
     },
     {
       "type": "true_false",
       "question": "Variable names in Python are case-sensitive, so Name and name are treated as two different variables.",
-      "options": ["True", "False"],
+      "options": [
+        "True",
+        "False"
+      ],
       "answer": "True",
       "marks": 1
     },
     {
       "type": "true_false",
       "question": "The logical `and` operator returns True only if both conditions are True.",
-      "options": ["True", "False"],
+      "options": [
+        "True",
+        "False"
+      ],
       "answer": "True",
       "marks": 1
     },
     {
       "type": "true_false",
-      "question": "Writing (5) with parentheses but no comma creates a tuple containing the value 5.",
-      "options": ["True", "False"],
+      "question": "Writing `(5)` with parentheses but no comma creates a tuple containing the value `5`.",
+      "options": [
+        "True",
+        "False"
+      ],
       "answer": "False",
       "marks": 1
     },
     {
       "type": "multi_select",
       "question": "Which of these are VALID variable names in Python?",
-      "options": ["var_1", "_var1", "1_var", "class"],
-      "answer": ["var_1", "_var1"],
+      "options": [
+        "`var_1`",
+        "`_var1`",
+        "`1_var`",
+        "`class`"
+      ],
+      "answer": [
+        "`var_1`",
+        "`_var1`"
+      ],
       "marks": 1
     },
     {
       "type": "multi_select",
       "question": "Which of the following are arithmetic operators?",
-      "options": ["+", "==", "**", "and"],
-      "answer": ["+", "**"],
+      "options": [
+        "`+`",
+        "`==`",
+        "`**`",
+        "`and`"
+      ],
+      "answer": [
+        "`+`",
+        "`**`"
+      ],
       "marks": 1
     },
     {
       "type": "multi_select",
       "question": "Which of the following are comparison (relational) operators?",
-      "options": ["==", "!=", "and", "is"],
-      "answer": ["==", "!="],
+      "options": [
+        "`==`",
+        "`!=`",
+        "`and`",
+        "`is`"
+      ],
+      "answer": [
+        "`==`",
+        "`!=`"
+      ],
       "marks": 1
     },
     {
       "type": "multi_select",
       "question": "Which of these are keywords reserved by Python (cannot be used as variable names)?",
-      "options": ["class", "if", "var1", "data"],
-      "answer": ["class", "if"],
+      "options": [
+        "`class`",
+        "`if`",
+        "`var1`",
+        "`data`"
+      ],
+      "answer": [
+        "`class`",
+        "`if`"
+      ],
       "marks": 1
     }
   ]
