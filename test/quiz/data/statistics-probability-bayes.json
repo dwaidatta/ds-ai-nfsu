@@ -1,0 +1,149 @@
+{
+  "id": "statistics-probability-bayes",
+  "title": "Statistics, Correlation & Probability",
+  "description": "Mixed-format quiz (MCQ, true/false, select-all) on measures of central tendency, variance & standard deviation, data dispersion, covariance & correlation, probability, random variables, conditional probability, and Bayes' theorem — aligned with the university question bank (Q16–Q24).",
+  "date": "2026-09-10",
+  "published": true,
+  "questions": [
+    {
+      "type": "mcq",
+      "question": "Which measure of central tendency is calculated by summing every value in a dataset and dividing by the count?",
+      "options": ["Mean", "Median", "Mode", "Variance"],
+      "answer": "Mean",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "Which measure of central tendency is the middle value when data is sorted in order, and is far less affected by outliers than the mean?",
+      "options": ["Median", "Mean", "Mode", "Standard deviation"],
+      "answer": "Median",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "Which measure of central tendency is the value that occurs most frequently, and is the only one usable meaningfully for categorical (non-numeric) data?",
+      "options": ["Mode", "Median", "Mean", "Covariance"],
+      "answer": "Mode",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "Why is the median often preferred over the mean for skewed, outlier-prone data such as income or house prices?",
+      "options": ["The median depends only on position, so it is far less affected by extreme values than the mean", "The median cannot be calculated for numerical data", "The mean is always identical to the mode", "The median requires more computation than the mean"],
+      "answer": "The median depends only on position, so it is far less affected by extreme values than the mean",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "What does variance measure about a dataset?",
+      "options": ["The average of the squared differences between each value and the mean", "The single value that occurs most often", "The middle value once the data is sorted", "The strength of the relationship between two variables"],
+      "answer": "The average of the squared differences between each value and the mean",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "Why is standard deviation often preferred over variance when interpreting spread?",
+      "options": ["It is expressed in the same units as the original data, unlike variance which is in squared units", "It is always a negative number, unlike variance", "It completely ignores the mean of the data", "It cannot be computed for any real dataset"],
+      "answer": "It is expressed in the same units as the original data, unlike variance which is in squared units",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "A low standard deviation in a dataset indicates that:",
+      "options": ["Data points are clustered tightly around the mean", "Data points are widely spread out over a large range", "The dataset has no defined mean", "The dataset must be categorical, not numerical"],
+      "answer": "Data points are clustered tightly around the mean",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "What does a positive covariance between two variables indicate?",
+      "options": ["The variables tend to increase or decrease together", "The variables always move in exactly opposite directions", "There is no relationship between the two variables at all", "One variable is always numerically larger than the other"],
+      "answer": "The variables tend to increase or decrease together",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "What is the main limitation of covariance as a way to compare the strength of relationships between different pairs of variables?",
+      "options": ["Its magnitude depends on the units of the variables, so it cannot be easily compared across different variable pairs", "It can never be a negative number", "It only applies to categorical variables", "It always equals zero whenever variables are related"],
+      "answer": "Its magnitude depends on the units of the variables, so it cannot be easily compared across different variable pairs",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "How does correlation improve on covariance as a measure of relationship?",
+      "options": ["It standardizes covariance into a unit-free value between -1 and +1, making strength comparable across different variable pairs", "It removes the need to ever calculate a mean", "It can only ever describe negative relationships", "It is always numerically identical to the variance"],
+      "answer": "It standardizes covariance into a unit-free value between -1 and +1, making strength comparable across different variable pairs",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "A correlation coefficient of r = -0.9 indicates:",
+      "options": ["A strong negative linear relationship", "A strong positive linear relationship", "No relationship at all between the variables", "An impossible/invalid value, since correlation cannot be negative"],
+      "answer": "A strong negative linear relationship",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "A correlation coefficient of r = 0 indicates:",
+      "options": ["No linear relationship between the variables, though a non-linear relationship could still exist", "A perfect positive linear relationship", "A perfect negative linear relationship", "That the two variables are exactly identical"],
+      "answer": "No linear relationship between the variables, though a non-linear relationship could still exist",
+      "marks": 1
+    },
+    {
+      "type": "true_false",
+      "question": "\"Correlation is not causation\": two variables can rise together because a hidden third factor drives both of them, rather than one variable directly causing the other.",
+      "options": ["True", "False"],
+      "answer": "True",
+      "marks": 1
+    },
+    {
+      "type": "true_false",
+      "question": "Probability is always expressed as a number between 0 (the event is impossible) and 1 (the event is certain).",
+      "options": ["True", "False"],
+      "answer": "True",
+      "marks": 1
+    },
+    {
+      "type": "true_false",
+      "question": "A discrete random variable can take any value within a continuous range, such as a person's exact height.",
+      "options": ["True", "False"],
+      "answer": "False",
+      "marks": 1
+    },
+    {
+      "type": "true_false",
+      "question": "Bayes' theorem provides a formal, principled way to update the probability of a hypothesis as new evidence is observed.",
+      "options": ["True", "False"],
+      "answer": "True",
+      "marks": 1
+    },
+    {
+      "type": "multi_select",
+      "question": "Which of the following are measures of central tendency?",
+      "options": ["Mean", "Median", "Mode", "Standard deviation"],
+      "answer": ["Mean", "Median", "Mode"],
+      "marks": 1
+    },
+    {
+      "type": "multi_select",
+      "question": "Which of the following are examples of datasets that typically show HIGH data dispersion (spread)?",
+      "options": ["Real estate prices in a large city", "Incomes in a country", "Test scores in a very easy exam", "Adult heights in a specific population"],
+      "answer": ["Real estate prices in a large city", "Incomes in a country"],
+      "marks": 1
+    },
+    {
+      "type": "multi_select",
+      "question": "In Bayes' theorem, P(A|B) = [P(B|A) · P(A)] / P(B), which of the following terms are correctly named?",
+      "options": ["P(A) is the prior probability", "P(B|A) is the likelihood", "P(A|B) is the posterior probability", "P(B) is called the likelihood"],
+      "answer": ["P(A) is the prior probability", "P(B|A) is the likelihood", "P(A|B) is the posterior probability"],
+      "marks": 1
+    },
+    {
+      "type": "multi_select",
+      "question": "Which of the following are true about conditional probability, P(A | B)?",
+      "options": ["It is the probability of event A occurring, given that event B has already occurred", "Knowing that B occurred can change the estimated likelihood of A", "It is always exactly equal to the unconditional probability of A", "It restricts attention to the part of the sample space where B has occurred"],
+      "answer": ["It is the probability of event A occurring, given that event B has already occurred", "Knowing that B occurred can change the estimated likelihood of A", "It restricts attention to the part of the sample space where B has occurred"],
+      "marks": 1
+    }
+  ]
+}

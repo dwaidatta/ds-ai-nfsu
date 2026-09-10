@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz — Guide for NFSU DS-AI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+  :root {
+    --bg: #f6f5f2;
+    --surface: #ffffff;
+    --text: #1c1c1e;
+    --muted: #6b6b70;
+    --accent: #c9622f;
+    --accent-soft: #f4e3d7;
+    --border: #e5e2dc;
+    --radius: 14px;
+    --shadow: 0 1px 2px rgba(20, 20, 20, 0.04), 0 6px 20px rgba(20, 20, 20, 0.05);
+    --good: #2f9e5e;
+    --good-soft: #e2f4ea;
+    --bad: #d64545;
+    --bad-soft: #fbe6e6;
+    --pastel-blue-bg: #dceafc;
+    --pastel-blue-text: #3f6fb3;
+    --pastel-purple-bg: #ece3fb;
+    --pastel-purple-text: #7c5cbf;
+    --pastel-amber-bg: #fdf0cd;
+    --pastel-amber-text: #a9791b;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #131314;
+      --surface: #1c1c1e;
+      --text: #f0efec;
+      --muted: #9a9a9e;
+      --accent: #e08a52;
+      --accent-soft: #3a2a1e;
+      --border: #2c2c2e;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.35);
+      --good: #4cbd82;
+      --good-soft: #1c3327;
+      --bad: #e5716f;
+      --bad-soft: #3a2020;
+      --pastel-blue-bg: #1c2a3d;
+      --pastel-blue-text: #8fb8ec;
+      --pastel-purple-bg: #29213e;
+      --pastel-purple-text: #c4aef2;
+      --pastel-amber-bg: #332a12;
+      --pastel-amber-text: #e8c876;
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    width: 100%;
+    max-width: 640px;
+    padding: clamp(24px, 6vw, 56px) clamp(16px, 5vw, 28px);
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 18px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .back-link:hover { color: var(--accent); }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(1.4rem, 4vw, 1.85rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .subtitle {
+    margin: 8px 0 0;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+  }
+
+  /* ---------- Intro screen ---------- */
+  #intro-screen { margin-top: clamp(24px, 6vw, 36px); }
+
+  .quiz-meta {
+    display: flex;
+    gap: 10px;
+    margin: 16px 0 20px;
+    flex-wrap: wrap;
+  }
+
+  .meta-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+  }
+
+  .btn:hover { transform: translateY(-1px); opacity: 0.94; }
+  .btn:active { transform: translateY(0); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--border);
+  }
+
+  .btn-outline:hover { border-color: var(--accent); }
+
+  .btn-soft {
+    background: var(--accent-soft);
+    color: var(--accent);
+    border: 1px solid transparent;
+  }
+
+  .btn-soft:hover { border-color: var(--accent); opacity: 1; }
+
+  /* ---------- Results actions ---------- */
+  .results-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 22px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .results-actions .btn {
+    width: 100%;
+    padding: 13px 10px;
+    font-size: 0.88rem;
+  }
+
+  .results-actions .btn i { font-size: 1rem; }
+
+  @media (max-width: 360px) {
+    .results-actions { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Progress ---------- */
+  .progress-wrap {
+    position: sticky;
+    top: 10px;
+    z-index: 5;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 12px 16px;
+    margin: 0 0 16px;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .progress-track {
+    height: 6px;
+    border-radius: 999px;
+    background: var(--border);
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--accent);
+    border-radius: 999px;
+    transition: width 0.2s ease;
+  }
+
+  /* ---------- Questions ---------- */
+  .question-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 10px;
+  }
+
+  .question-card { padding: 18px 20px; }
+
+  .question-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 0 0 14px;
+  }
+
+  .question-num {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .question-head-main {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .type-badge {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  .type-badge-mcq { background: var(--pastel-blue-bg); color: var(--pastel-blue-text); }
+  .type-badge-true_false { background: var(--pastel-purple-bg); color: var(--pastel-purple-text); }
+  .type-badge-multi_select { background: var(--pastel-amber-bg); color: var(--pastel-amber-text); }
+
+  .hint-text {
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: normal;
+  }
+
+  .question-text {
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .options-row {
+    flex-direction: row;
+  }
+
+  .options-row .option {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .option:hover { border-color: var(--accent); }
+
+  .option input {
+    accent-color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .option.selected {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .option.correct {
+    border-color: var(--good);
+    background: var(--good-soft);
+    color: var(--good);
+    font-weight: 600;
+  }
+
+  .option.incorrect {
+    border-color: var(--bad);
+    background: var(--bad-soft);
+    color: var(--bad);
+    font-weight: 600;
+  }
+
+  .option.correct-missed {
+    border: 1.5px dashed var(--good);
+    background: transparent;
+    color: var(--good);
+    font-weight: 600;
+  }
+
+  .option.disabled { cursor: default; pointer-events: none; }
+
+  .review-tag {
+    margin-left: auto;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .unanswered-flag {
+    display: none;
+    margin-top: 10px;
+    font-size: 0.78rem;
+    color: var(--bad);
+    align-items: center;
+    gap: 6px;
+  }
+
+  .question-card.flagged .unanswered-flag { display: flex; }
+  .question-card.flagged { box-shadow: 0 0 0 1.5px var(--bad); }
+
+  /* ---------- Results ---------- */
+  #results-screen { display: none; margin-top: clamp(24px, 6vw, 36px); }
+
+  .score-card {
+    text-align: center;
+    padding: 28px 20px;
+  }
+
+  .score-ring {
+    width: 128px;
+    height: 128px;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: conic-gradient(var(--accent) calc(var(--pct, 0) * 1%), var(--accent-soft) 0);
+  }
+
+  .score-ring-inner {
+    width: 104px;
+    height: 104px;
+    border-radius: 50%;
+    background: var(--surface);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .score-value {
+    font-size: 1.4rem;
+    font-weight: 800;
+  }
+
+  .score-sub {
+    font-size: 0.7rem;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  .attempt-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0 0 14px;
+    background: var(--pastel-blue-bg);
+    color: var(--pastel-blue-text);
+    border-radius: 999px;
+    padding: 5px 14px;
+    font-size: 0.74rem;
+    font-weight: 700;
+  }
+
+  .score-headline {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 4px 0;
+  }
+
+  .score-detail {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  .review-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: clamp(24px, 5vw, 32px) 0 14px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .review-title i { font-size: 0.95rem; color: var(--accent); }
+
+  .loading, .error-msg {
+    text-align: center;
+    color: var(--muted);
+    padding: 40px 0;
+    font-size: 0.9rem;
+  }
+
+  .error-msg i { color: var(--bad); font-size: 1.3rem; display: block; margin-bottom: 8px; }
+
+  /* ---------- Modal ---------- */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 100;
+  }
+
+  .modal-overlay.open { display: flex; }
+
+  .modal-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 22px;
+    max-width: 380px;
+    width: 100%;
+  }
+
+  .modal-title { margin: 0 0 8px; font-size: 1.05rem; font-weight: 700; }
+  .modal-message { margin: 0 0 18px; font-size: 0.88rem; color: var(--muted); line-height: 1.5; }
+  .modal-actions { display: flex; gap: 10px; }
+
+  .modal-btn {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border-radius: 10px;
+    padding: 11px 14px;
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+  }
+
+  .modal-btn:hover { transform: translateY(-1px); opacity: 0.94; }
+  .modal-btn:active { transform: translateY(0); }
+
+  .modal-btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+
+  .modal-btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+  }
+
+  .modal-btn-danger {
+    background: var(--bad);
+    color: #fff;
+    border: none;
+  }
+</style>
+</head>
+
+<body>
+  <div class="page">
+    <a class="back-link" href="index.html"><i class="bi bi-arrow-left"></i> All quizzes</a>
+
+    <div id="loading" class="loading">Loading quiz…</div>
+    <div id="error" class="error-msg" style="display:none;">
+      <i class="bi bi-exclamation-triangle"></i>
+      <span id="error-text">Could not load this quiz. Check the link and try again.</span>
+    </div>
+
+    <!-- ============ Intro screen ============ -->
+    <div id="intro-screen" style="display:none;">
+      <header>
+        <h1 id="quiz-title"></h1>
+        <p class="subtitle" id="quiz-description"></p>
+        <div class="quiz-meta">
+          <span class="meta-pill"><i class="bi bi-question-circle"></i> <span id="meta-count"></span> questions</span>
+          <span class="meta-pill"><i class="bi bi-award"></i> <span id="meta-marks"></span> marks</span>
+        </div>
+      </header>
+      <div class="card">
+        <p style="margin:0 0 16px; font-size:0.88rem; color:var(--muted);">
+          Answer every question, then submit to see your score and a full review with the correct answers. Your progress is autosaved in this browser as you go.
+        </p>
+        <button class="btn" id="start-btn"><i class="bi bi-play-fill"></i> Start Quiz</button>
+      </div>
+    </div>
+
+    <!-- ============ Quiz screen ============ -->
+    <div id="quiz-screen" style="display:none;">
+      <div class="progress-wrap">
+        <div class="progress-label">
+          <span id="progress-text">0 of 0 answered</span>
+          <span id="progress-pct">0%</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+      </div>
+      <form id="quiz-form" class="question-list"></form>
+      <button class="btn" id="submit-btn" style="margin-top:16px;"><i class="bi bi-check2-circle"></i> Submit Quiz</button>
+    </div>
+
+    <!-- ============ Results screen ============ -->
+    <div id="results-screen">
+      <div class="card score-card">
+        <p class="attempt-badge" id="attempt-badge" style="display:none;"><i class="bi bi-clock-history"></i> <span id="attempt-badge-text"></span></p>
+        <div class="score-ring" id="score-ring">
+          <div class="score-ring-inner">
+            <span class="score-value" id="score-value"></span>
+            <span class="score-sub">SCORE</span>
+          </div>
+        </div>
+        <p class="score-headline" id="score-headline"></p>
+        <p class="score-detail" id="score-detail"></p>
+        <div class="results-actions">
+          <button class="btn btn-outline" id="retake-btn"><i class="bi bi-arrow-repeat"></i> Retake</button>
+          <a class="btn btn-outline" href="index.html"><i class="bi bi-list-check"></i> All Quizzes</a>
+          <button class="btn btn-soft" id="share-btn"><i class="bi bi-share"></i> Share Result</button>
+          <button class="btn btn-soft" id="pdf-btn"><i class="bi bi-file-earmark-pdf"></i> PDF Report</button>
+        </div>
+      </div>
+
+      <h2 class="review-title"><i class="bi bi-clipboard-check"></i> Review</h2>
+      <div class="question-list" id="review-list"></div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal-box">
+      <h3 class="modal-title" id="modal-title"></h3>
+      <p class="modal-message" id="modal-message"></p>
+      <div class="modal-actions">
+        <button class="modal-btn modal-btn-outline" id="modal-cancel-btn"></button>
+        <button class="modal-btn modal-btn-primary" id="modal-confirm-btn"></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="storage.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const src = params.get('src');
+    const attemptId = params.get('attempt');
+
+    let quizData = null;
+    let quizId = null;
+    const userAnswers = new Map(); // questionIndex -> selected/typed answer
+    let lastResult = null; // populated after submit or when viewing a past attempt
+    let quizStartedAt = null; // timestamp (ms) set when the quiz screen is entered
+    let attemptSrc = src; // quiz JSON path used to relaunch a fresh attempt (see retake-btn)
+    let isHistoricalView = false; // true when viewing a saved past attempt read-only
+
+    const loadingEl = document.getElementById('loading');
+    const errorEl = document.getElementById('error');
+    const introEl = document.getElementById('intro-screen');
+    const quizEl = document.getElementById('quiz-screen');
+    const resultsEl = document.getElementById('results-screen');
+
+    if (attemptId) {
+      loadHistoricalAttempt(attemptId);
+    } else if (!src) {
+      loadingEl.style.display = 'none';
+      errorEl.style.display = 'block';
+    } else {
+      fetch(src)
+        .then((res) => (res.ok ? res.json() : Promise.reject(new Error('Failed to fetch'))))
+        .then((data) => {
+          if (!data || !Array.isArray(data.questions) || !data.questions.length) {
+            throw new Error('Invalid quiz data');
+          }
+          quizData = data;
+          quizId = data.id || slugify(data.title || src);
+          renderIntro();
+          loadingEl.style.display = 'none';
+          introEl.style.display = 'block';
+        })
+        .catch(() => {
+          loadingEl.style.display = 'none';
+          errorEl.style.display = 'block';
+        });
+    }
+
+    // Reconstructs a fully-answered, read-only results view from a saved history
+    // entry, so past attempts support the exact same review/share/PDF actions
+    // as a just-submitted quiz.
+    function loadHistoricalAttempt(id) {
+      const entry = QuizStorage.getHistory().find((h) => h.id === id);
+      if (!entry || !Array.isArray(entry.questions) || !entry.questions.length) {
+        loadingEl.style.display = 'none';
+        document.getElementById('error-text').textContent = entry
+          ? 'This saved attempt doesn\'t have its full details recorded (it was saved before detailed history was added). Open the quiz again from "All quizzes" to start a fresh attempt.'
+          : 'Could not find this saved attempt. It may have been cleared from this browser.';
+        errorEl.style.display = 'block';
+        return;
+      }
+
+      isHistoricalView = true;
+      quizData = {
+        id: entry.quizId,
+        title: entry.quizTitle,
+        description: entry.quizDescription || '',
+        questions: entry.questions,
+      };
+      quizId = entry.quizId;
+      attemptSrc = entry.src || null;
+
+      renderQuiz();
+
+      Object.entries(entry.answers || {}).forEach(([key, val]) => {
+        const qi = Number(key);
+        if (!quizData.questions[qi]) return;
+        userAnswers.set(qi, val);
+        const card = document.querySelector(`.question-card[data-index="${qi}"]`);
+        if (!card) return;
+        const values = Array.isArray(val) ? val : [val];
+        card.querySelectorAll(`input[name="q${qi}"]`).forEach((inp) => {
+          if (values.includes(inp.value)) {
+            inp.checked = true;
+            inp.closest('.option').classList.add('selected');
+          }
+        });
+      });
+
+      lastResult = {
+        earned: entry.earned,
+        total: entry.total,
+        pct: entry.pct,
+        totalQuestions: entry.totalQuestions,
+        correctCount: entry.correctCount,
+        incorrectCount: entry.incorrectCount,
+        attemptDate: new Date(entry.date),
+        durationMs: entry.durationMs,
+        quizId: entry.quizId,
+        quizTitle: entry.quizTitle,
+      };
+
+      paintQuestionCards();
+      populateScoreUI();
+
+      const badge = document.getElementById('attempt-badge');
+      document.getElementById('attempt-badge-text').textContent =
+        `Viewing past attempt · ${lastResult.attemptDate.toLocaleString()}`;
+      badge.style.display = 'inline-flex';
+
+      if (!attemptSrc) {
+        const retakeBtn = document.getElementById('retake-btn');
+        retakeBtn.disabled = true;
+        retakeBtn.title = 'Original quiz source unknown for this saved attempt — open it from "All quizzes" to retake.';
+      }
+
+      document.title = `${quizData.title || 'Quiz'} — Guide for NFSU DS-AI`;
+      const reviewList = document.getElementById('review-list');
+      reviewList.innerHTML = '';
+      reviewList.appendChild(document.getElementById('quiz-form'));
+
+      loadingEl.style.display = 'none';
+      resultsEl.style.display = 'block';
+    }
+
+    function showConfirmModal({ title = 'Confirm', message, confirmLabel = 'Confirm', cancelLabel = 'Cancel', danger = false }) {
+      return new Promise((resolve) => {
+        const overlay = document.getElementById('modal-overlay');
+        const confirmBtn = document.getElementById('modal-confirm-btn');
+        const cancelBtn = document.getElementById('modal-cancel-btn');
+
+        document.getElementById('modal-title').textContent = title;
+        document.getElementById('modal-message').textContent = message;
+        confirmBtn.textContent = confirmLabel;
+        confirmBtn.classList.toggle('modal-btn-primary', !danger);
+        confirmBtn.classList.toggle('modal-btn-danger', danger);
+        cancelBtn.textContent = cancelLabel;
+
+        function cleanup(result) {
+          overlay.classList.remove('open');
+          confirmBtn.removeEventListener('click', onConfirm);
+          cancelBtn.removeEventListener('click', onCancel);
+          overlay.removeEventListener('click', onOverlayClick);
+          document.removeEventListener('keydown', onKeydown);
+          resolve(result);
+        }
+        function onConfirm() { cleanup(true); }
+        function onCancel() { cleanup(false); }
+        function onOverlayClick(e) { if (e.target === overlay) cleanup(false); }
+        function onKeydown(e) { if (e.key === 'Escape') cleanup(false); }
+
+        confirmBtn.addEventListener('click', onConfirm);
+        cancelBtn.addEventListener('click', onCancel);
+        overlay.addEventListener('click', onOverlayClick);
+        document.addEventListener('keydown', onKeydown);
+        overlay.classList.add('open');
+        confirmBtn.focus();
+      });
+    }
+
+    function totalMarks() {
+      return quizData.questions.reduce((sum, q) => sum + (q.marks || 1), 0);
+    }
+
+    function typeLabel(qType) {
+      if (qType === 'true_false') return 'True / False';
+      if (qType === 'multi_select') return 'Select All That Apply';
+      return 'MCQ';
+    }
+
+    function isCorrect(q, chosen) {
+      const qType = q.type || 'mcq';
+      if (qType === 'multi_select') {
+        if (!Array.isArray(chosen) || !chosen.length) return false;
+        const a = [...chosen].sort();
+        const b = [...q.answer].sort();
+        return a.length === b.length && a.every((v, i) => v === b[i]);
+      }
+      if (chosen === undefined || chosen === null || chosen === '') return false;
+      return chosen === q.answer;
+    }
+
+    function persistProgress() {
+      QuizStorage.saveProgress(quizId, Object.fromEntries(userAnswers));
+    }
+
+    function renderIntro() {
+      document.title = `${quizData.title || 'Quiz'} — Guide for NFSU DS-AI`;
+      document.getElementById('quiz-title').textContent = quizData.title || 'Quiz';
+      document.getElementById('quiz-description').textContent = quizData.description || '';
+      document.getElementById('meta-count').textContent = quizData.questions.length;
+      document.getElementById('meta-marks').textContent = totalMarks();
+    }
+
+    document.getElementById('start-btn').addEventListener('click', async () => {
+      const saved = QuizStorage.getProgress(quizId);
+      let resume = false;
+      if (saved && saved.answers && Object.keys(saved.answers).length) {
+        resume = await showConfirmModal({
+          title: 'Resume quiz?',
+          message: `You have saved progress for this quiz (${Object.keys(saved.answers).length} of ${quizData.questions.length} answered). Resume where you left off?`,
+          confirmLabel: 'Resume',
+          cancelLabel: 'Start over',
+        });
+      }
+
+      quizStartedAt = Date.now();
+      renderQuiz();
+
+      if (resume) {
+        Object.entries(saved.answers).forEach(([key, val]) => {
+          const qi = Number(key);
+          const q = quizData.questions[qi];
+          if (!q) return;
+          userAnswers.set(qi, val);
+          const card = document.querySelector(`.question-card[data-index="${qi}"]`);
+          if (!card) return;
+          const values = Array.isArray(val) ? val : [val];
+          card.querySelectorAll(`input[name="q${qi}"]`).forEach((inp) => {
+            if (values.includes(inp.value)) {
+              inp.checked = true;
+              inp.closest('.option').classList.add('selected');
+            }
+          });
+        });
+        updateProgress();
+      } else if (saved) {
+        QuizStorage.clearProgress(quizId);
+      }
+
+      introEl.style.display = 'none';
+      quizEl.style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    function renderQuiz() {
+      const form = document.getElementById('quiz-form');
+      form.innerHTML = '';
+      userAnswers.clear();
+
+      quizData.questions.forEach((q, qi) => {
+        const qType = q.type || 'mcq';
+        const card = document.createElement('div');
+        card.className = 'card question-card';
+        card.dataset.index = qi;
+
+        const head = document.createElement('div');
+        head.className = 'question-head';
+
+        const num = document.createElement('span');
+        num.className = 'question-num';
+        num.textContent = qi + 1;
+
+        const main = document.createElement('div');
+        main.className = 'question-head-main';
+
+        const badge = document.createElement('span');
+        badge.className = `type-badge type-badge-${qType}`;
+        badge.textContent = typeLabel(qType);
+
+        const text = document.createElement('span');
+        text.className = 'question-text';
+        text.textContent = q.question;
+
+        main.appendChild(badge);
+        main.appendChild(text);
+        if (qType === 'multi_select') {
+          const hint = document.createElement('span');
+          hint.className = 'hint-text';
+          hint.textContent = 'More than one option may be correct.';
+          main.appendChild(hint);
+        }
+        head.appendChild(num);
+        head.appendChild(main);
+        card.appendChild(head);
+
+        const opts = document.createElement('div');
+        opts.className = qType === 'true_false' ? 'options options-row' : 'options';
+
+        q.options.forEach((opt) => {
+          const label = document.createElement('label');
+          label.className = 'option';
+          const input = document.createElement('input');
+          input.type = qType === 'multi_select' ? 'checkbox' : 'radio';
+          input.name = `q${qi}`;
+          input.value = opt;
+
+          const span = document.createElement('span');
+          span.textContent = opt;
+          label.appendChild(input);
+          label.appendChild(span);
+
+          input.addEventListener('change', () => {
+            if (qType === 'multi_select') {
+              label.classList.toggle('selected', input.checked);
+              const selected = [...opts.querySelectorAll('input:checked')].map((el) => el.value);
+              if (selected.length) {
+                userAnswers.set(qi, selected);
+                card.classList.remove('flagged');
+              } else {
+                userAnswers.delete(qi);
+              }
+            } else {
+              opts.querySelectorAll('.option').forEach((el) => el.classList.remove('selected'));
+              label.classList.add('selected');
+              userAnswers.set(qi, opt);
+              card.classList.remove('flagged');
+            }
+            persistProgress();
+            updateProgress();
+          });
+          opts.appendChild(label);
+        });
+
+        card.appendChild(opts);
+
+        const flag = document.createElement('div');
+        flag.className = 'unanswered-flag';
+        flag.innerHTML = '<i class="bi bi-exclamation-circle"></i> Please select an answer';
+        card.appendChild(flag);
+
+        form.appendChild(card);
+      });
+
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const total = quizData.questions.length;
+      const answered = userAnswers.size;
+      const pct = total ? Math.round((answered / total) * 100) : 0;
+      document.getElementById('progress-text').textContent = `${answered} of ${total} answered`;
+      document.getElementById('progress-pct').textContent = `${pct}%`;
+      document.getElementById('progress-fill').style.width = `${pct}%`;
+    }
+
+    document.getElementById('submit-btn').addEventListener('click', () => {
+      const total = quizData.questions.length;
+      if (userAnswers.size < total) {
+        document.querySelectorAll('.question-card').forEach((card) => {
+          const qi = Number(card.dataset.index);
+          if (!userAnswers.has(qi)) card.classList.add('flagged');
+        });
+        const firstFlagged = document.querySelector('.question-card.flagged');
+        if (firstFlagged) firstFlagged.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      showResults();
+    });
+
+    // Marks every option as correct / incorrect / missed and disables the
+    // inputs, based on the current contents of userAnswers. Shared by a fresh
+    // submission and by a read-only historical-attempt view.
+    function paintQuestionCards() {
+      quizData.questions.forEach((q, qi) => {
+        const qType = q.type || 'mcq';
+        const chosen = userAnswers.get(qi);
+        const card = document.querySelector(`.question-card[data-index="${qi}"]`);
+        if (!card) return;
+        const chosenList = Array.isArray(chosen) ? chosen : (chosen !== undefined ? [chosen] : []);
+
+        card.querySelectorAll('.option').forEach((label) => {
+          const input = label.querySelector('input');
+          input.disabled = true;
+          label.classList.add('disabled');
+          label.classList.remove('selected');
+
+          const isAnswer = qType === 'multi_select' ? q.answer.includes(input.value) : input.value === q.answer;
+          const wasChosen = chosenList.includes(input.value);
+
+          if (isAnswer && wasChosen) {
+            label.classList.add('correct');
+            label.insertAdjacentHTML('beforeend', '<span class="review-tag"><i class="bi bi-check-circle-fill"></i></span>');
+          } else if (isAnswer && !wasChosen) {
+            label.classList.add('correct-missed');
+            label.insertAdjacentHTML('beforeend', '<span class="review-tag"><i class="bi bi-circle"></i></span>');
+          } else if (wasChosen) {
+            label.classList.add('incorrect');
+            label.insertAdjacentHTML('beforeend', '<span class="review-tag"><i class="bi bi-x-circle-fill"></i></span>');
+          }
+        });
+      });
+    }
+
+    function populateScoreUI() {
+      const { earned, total, pct, totalQuestions } = lastResult;
+      document.getElementById('score-ring').style.setProperty('--pct', pct);
+      document.getElementById('score-value').textContent = `${earned}/${total}`;
+      document.getElementById('score-headline').textContent = headlineFor(pct);
+      document.getElementById('score-detail').textContent = `${pct}% correct across ${totalQuestions} questions`;
+    }
+
+    function showResults() {
+      let earned = 0;
+      let correctCount = 0;
+      const total = totalMarks();
+
+      quizData.questions.forEach((q, qi) => {
+        const chosen = userAnswers.get(qi);
+        const marks = q.marks || 1;
+        if (isCorrect(q, chosen)) { earned += marks; correctCount += 1; }
+      });
+
+      paintQuestionCards();
+
+      const pct = total ? Math.round((earned / total) * 100) : 0;
+      const totalQuestions = quizData.questions.length;
+      const incorrectCount = totalQuestions - correctCount;
+      lastResult = {
+        earned,
+        total,
+        pct,
+        totalQuestions,
+        correctCount,
+        incorrectCount,
+        attemptDate: new Date(),
+        durationMs: quizStartedAt ? Date.now() - quizStartedAt : null,
+        quizId,
+        quizTitle: quizData.title,
+      };
+
+      QuizStorage.clearProgress(quizId);
+      QuizStorage.addHistoryEntry({
+        id: `${quizId}-${Date.now()}`,
+        quizId,
+        quizTitle: quizData.title,
+        quizDescription: quizData.description || '',
+        src: attemptSrc,
+        date: lastResult.attemptDate.toISOString(),
+        earned,
+        total,
+        pct,
+        totalQuestions,
+        correctCount,
+        incorrectCount,
+        durationMs: lastResult.durationMs,
+        // Full snapshot of the attempt (answers + the exact questions asked),
+        // so this attempt can be reopened and reviewed/shared/exported later
+        // even if the quiz's source JSON changes afterwards.
+        answers: Object.fromEntries(userAnswers),
+        questions: quizData.questions,
+      });
+
+      populateScoreUI();
+
+      const reviewList = document.getElementById('review-list');
+      reviewList.innerHTML = '';
+      reviewList.appendChild(document.getElementById('quiz-form'));
+
+      quizEl.style.display = 'none';
+      resultsEl.style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function headlineFor(pct) {
+      if (pct === 100) return 'Perfect score!';
+      if (pct >= 80) return 'Great work!';
+      if (pct >= 60) return 'Good effort!';
+      if (pct >= 40) return 'Keep practicing.';
+      return 'Review the material and try again.';
+    }
+
+    // Retake always starts a brand-new attempt: rather than resetting in-page
+    // state (which is easy to get subtly wrong — stale answers, timers, or
+    // history bleeding through), it does a full navigation to a clean quiz
+    // session. This also works uniformly whether the results shown came from
+    // a just-submitted quiz or from viewing a past attempt in history.
+    document.getElementById('retake-btn').addEventListener('click', () => {
+      if (quizId) QuizStorage.clearProgress(quizId);
+      if (!attemptSrc) return;
+      window.location.href = `take.html?src=${encodeURIComponent(attemptSrc)}`;
+    });
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    function formatDuration(ms) {
+      if (!ms || ms < 0) return 'N/A';
+      const totalSeconds = Math.round(ms / 1000);
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+      if (minutes <= 0) return `${seconds}s`;
+      return `${minutes}m ${seconds}s`;
+    }
+
+    function summaryText() {
+      const {
+        earned, total, pct, totalQuestions, correctCount, incorrectCount,
+        attemptDate, durationMs, quizId: id,
+      } = lastResult;
+
+      return [
+        `${quizData.title} — Quiz Result`,
+        quizData.description ? quizData.description : null,
+        '',
+        `Score: ${earned}/${total} marks (${pct}%)`,
+        `Grade: ${headlineFor(pct)}`,
+        `Questions: ${correctCount} correct / ${incorrectCount} incorrect (of ${totalQuestions} total)`,
+        '',
+        `Attempt date: ${attemptDate.toLocaleDateString()}`,
+        `Attempt time: ${attemptDate.toLocaleTimeString()}`,
+        `Time taken: ${formatDuration(durationMs)}`,
+        '',
+        `Quiz ID: ${id}`,
+        'Guide for NFSU DS-AI — Quiz Feature',
+      ].filter((line) => line !== null).join('\n');
+    }
+
+    function downloadTextFile(filename, text) {
+      const blob = new Blob([text], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function slugify(str) {
+      return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    }
+
+    // Builds a comprehensive, collision-resistant filename stem shared by the
+    // text and PDF exports: <quiz-slug>-<YYYYMMDD>-<HHmm>-<score>pct
+    function reportFileStamp() {
+      const d = lastResult.attemptDate;
+      const pad = (n) => String(n).padStart(2, '0');
+      const dateStamp = `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}`;
+      const timeStamp = `${pad(d.getHours())}${pad(d.getMinutes())}`;
+      return `${slugify(quizData.title)}-${dateStamp}-${timeStamp}-${lastResult.pct}pct`;
+    }
+
+    function formatAnswer(val) {
+      if (Array.isArray(val)) return val.join(', ');
+      return val === undefined || val === null ? '' : String(val);
+    }
+
+    document.getElementById('share-btn').addEventListener('click', async () => {
+      const text = summaryText();
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: `${quizData.title} — Quiz Result`, text });
+          return;
+        } catch (err) {
+          if (err && err.name === 'AbortError') return; // user cancelled the share sheet
+        }
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        try {
+          await navigator.clipboard.writeText(text);
+          const btn = document.getElementById('share-btn');
+          const original = btn.innerHTML;
+          btn.innerHTML = '<i class="bi bi-check2"></i> Copied!';
+          setTimeout(() => { btn.innerHTML = original; }, 1800);
+          return;
+        } catch (err) { /* fall through to file download */ }
+      }
+      downloadTextFile(`${reportFileStamp()}-result.txt`, text);
+    });
+
+    document.getElementById('pdf-btn').addEventListener('click', () => {
+      const { jsPDF } = window.jspdf || {};
+      if (!jsPDF) return;
+
+      const {
+        earned, total, pct, totalQuestions, correctCount, incorrectCount,
+        attemptDate, durationMs, quizId: id,
+      } = lastResult;
+
+      const doc = new jsPDF();
+
+      doc.setProperties({
+        title: `${quizData.title} — Quiz Report`,
+        subject: `Quiz result: ${earned}/${total} marks (${pct}%)`,
+        author: 'Guide for NFSU DS-AI',
+        creator: 'Guide for NFSU DS-AI — Quiz Feature',
+        keywords: `quiz, report, ${quizData.title}, ${id}, ${headlineFor(pct)}`,
+      });
+
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+      const margin = 15;
+      const maxWidth = pageWidth - margin * 2;
+      let y = margin;
+
+      function ensureSpace(lines) {
+        if (y + lines * 6 > pageHeight - margin) {
+          doc.addPage();
+          y = margin;
+        }
+      }
+
+      doc.setFontSize(16);
+      doc.setFont(undefined, 'bold');
+      doc.setTextColor(28, 28, 30);
+      const titleLines = doc.splitTextToSize(quizData.title, maxWidth);
+      doc.text(titleLines, margin, y);
+      y += titleLines.length * 7 + 2;
+
+      if (quizData.description) {
+        doc.setFontSize(10);
+        doc.setFont(undefined, 'italic');
+        doc.setTextColor(110, 110, 110);
+        const descLines = doc.splitTextToSize(quizData.description, maxWidth);
+        doc.text(descLines, margin, y);
+        y += descLines.length * 5 + 3;
+      }
+
+      doc.setFontSize(10);
+      doc.setFont(undefined, 'normal');
+      doc.setTextColor(110, 110, 110);
+      doc.text(`Quiz ID: ${id}  ·  Generated ${new Date().toLocaleString()}`, margin, y);
+      y += 8;
+
+      doc.setFontSize(12);
+      doc.setFont(undefined, 'bold');
+      doc.setTextColor(201, 98, 47);
+      doc.text(`Score: ${earned}/${total} (${pct}%) — ${headlineFor(pct)}`, margin, y);
+      y += 8;
+
+      doc.setFontSize(10);
+      doc.setFont(undefined, 'normal');
+      doc.setTextColor(80, 80, 80);
+      const metaLines = [
+        `Attempt date: ${attemptDate.toLocaleDateString()}   Attempt time: ${attemptDate.toLocaleTimeString()}`,
+        `Time taken: ${formatDuration(durationMs)}   Questions: ${correctCount} correct / ${incorrectCount} incorrect (of ${totalQuestions})`,
+      ];
+      metaLines.forEach((line) => {
+        doc.text(line, margin, y);
+        y += 5.5;
+      });
+      y += 4;
+
+      doc.setDrawColor(229, 226, 220);
+      doc.line(margin, y, pageWidth - margin, y);
+      y += 8;
+
+      quizData.questions.forEach((q, qi) => {
+        const chosen = userAnswers.get(qi);
+        const correct = isCorrect(q, chosen);
+
+        ensureSpace(3);
+        doc.setFontSize(11);
+        doc.setFont(undefined, 'bold');
+        doc.setTextColor(28, 28, 30);
+        const qLines = doc.splitTextToSize(`${qi + 1}. [${typeLabel(q.type || 'mcq')}] ${q.question}`, maxWidth);
+        ensureSpace(qLines.length + 3);
+        doc.text(qLines, margin, y);
+        y += qLines.length * 6 + 2;
+
+        doc.setFontSize(10);
+        doc.setFont(undefined, 'normal');
+
+        doc.setTextColor(47, 158, 94);
+        const correctLines = doc.splitTextToSize(`Correct answer: ${formatAnswer(q.answer)}`, maxWidth - 4);
+        ensureSpace(correctLines.length);
+        doc.text(correctLines, margin + 4, y);
+        y += correctLines.length * 5.5;
+
+        if (!correct) {
+          doc.setTextColor(214, 69, 69);
+          const yourLines = doc.splitTextToSize(`Your answer: ${formatAnswer(chosen) || '(no answer)'}`, maxWidth - 4);
+          ensureSpace(yourLines.length);
+          doc.text(yourLines, margin + 4, y);
+          y += yourLines.length * 5.5;
+        }
+
+        doc.setTextColor(150, 150, 150);
+        doc.text(`Marks: ${correct ? (q.marks || 1) : 0}/${q.marks || 1}`, margin + 4, y);
+        y += 8;
+      });
+
+      const pageCount = doc.internal.getNumberOfPages();
+      for (let p = 1; p <= pageCount; p += 1) {
+        doc.setPage(p);
+        doc.setFontSize(8);
+        doc.setFont(undefined, 'normal');
+        doc.setTextColor(160, 160, 160);
+        doc.text(
+          `${quizData.title} · Attempted ${attemptDate.toLocaleString()} · Guide for NFSU DS-AI`,
+          margin,
+          pageHeight - 8
+        );
+        doc.text(`Page ${p} of ${pageCount}`, pageWidth - margin, pageHeight - 8, { align: 'right' });
+      }
+
+      doc.save(`${reportFileStamp()}-report.pdf`);
+    });
+  </script>
+</body>
+</html>

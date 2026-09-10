@@ -1,0 +1,149 @@
+{
+  "id": "python-libraries-environment",
+  "title": "Python for Data Science: Environment & Libraries",
+  "description": "Mixed-format quiz (MCQ, true/false, select-all) on Anaconda, Jupyter Notebooks, functions, dictionaries in data handling, and the core Data Science/ML libraries (NumPy, Pandas, Matplotlib, Scikit-learn, TensorFlow, Keras, PyTorch) — aligned with the university question bank (Q6, Q8–Q10).",
+  "date": "2026-09-10",
+  "published": true,
+  "questions": [
+    {
+      "type": "mcq",
+      "question": "Which of the following is a reason Python is preferred for Data Science?",
+      "options": ["Its syntax reads almost like plain English, lowering the barrier to entry for non-professional programmers", "It is a compiled language requiring manual memory management", "It has no ready-made libraries for numerical computing", "It cannot be used for data visualization"],
+      "answer": "Its syntax reads almost like plain English, lowering the barrier to entry for non-professional programmers",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "What makes Python especially suited to the exploratory, trial-and-error nature of data analysis?",
+      "options": ["It is an interpreted language, so code runs line by line and results can be seen immediately", "It is a purely compiled language", "It requires the entire program to run before any output appears", "It cannot be used inside a notebook environment"],
+      "answer": "It is an interpreted language, so code runs line by line and results can be seen immediately",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "What is Anaconda?",
+      "options": ["A Python distribution pre-packaged with major Data Science libraries plus the conda package/environment manager", "A web browser used to run Python scripts", "A cloud database service for storing datasets", "A type of neural network architecture"],
+      "answer": "A Python distribution pre-packaged with major Data Science libraries plus the conda package/environment manager",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "What is a Jupyter Notebook?",
+      "options": ["An interactive coding environment where code runs in small, independently re-runnable blocks called cells", "A command-line-only Python interpreter with no visual output", "A spreadsheet application unrelated to Python", "A version control system for tracking code changes"],
+      "answer": "An interactive coding environment where code runs in small, independently re-runnable blocks called cells",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "Which library is built around a fast data structure called an array (ndarray) for numerical computing?",
+      "options": ["NumPy", "Pandas", "Matplotlib", "Scikit-learn"],
+      "answer": "NumPy",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "Why are NumPy arrays generally faster than plain Python lists for large-scale numerical computation?",
+      "options": ["NumPy performs operations on an entire array at once using pre-compiled C code (vectorization), instead of a Python loop element by element", "NumPy arrays can only ever store a single number at a time", "Python lists always store their elements contiguously in one packed block", "NumPy cannot perform any mathematical operations on arrays"],
+      "answer": "NumPy performs operations on an entire array at once using pre-compiled C code (vectorization), instead of a Python loop element by element",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "Which library's core structure is the DataFrame, used for working with structured, table-like data?",
+      "options": ["Pandas", "NumPy", "TensorFlow", "PyTorch"],
+      "answer": "Pandas",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "A Pandas DataFrame is best described as:",
+      "options": ["A two-dimensional, size-mutable, tabular data structure with labeled rows and columns", "A single labeled column of data only", "An unordered collection that automatically removes duplicate values", "A fixed collection of items that can never be modified"],
+      "answer": "A two-dimensional, size-mutable, tabular data structure with labeled rows and columns",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "Which library is primarily used to create visual representations of data, such as line graphs, bar charts, scatter plots, and histograms?",
+      "options": ["Matplotlib", "NumPy", "Scikit-learn", "TensorFlow"],
+      "answer": "Matplotlib",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "Which library provides ready-to-use implementations of traditional ML algorithms (regression, classification, clustering) plus tools for evaluating performance?",
+      "options": ["Scikit-learn", "TensorFlow", "Keras", "PyTorch"],
+      "answer": "Scikit-learn",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "Which library is described as a beginner-friendly interface sitting on top of TensorFlow, for defining and training neural networks with simple, readable commands?",
+      "options": ["Keras", "PyTorch", "NumPy", "Pandas"],
+      "answer": "Keras",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "PyTorch is best described as:",
+      "options": ["A major deep learning framework widely used in research for its flexibility", "A tool exclusively for reading and writing spreadsheet files", "A database query language", "A tool used only for cleaning missing values"],
+      "answer": "A major deep learning framework widely used in research for its flexibility",
+      "marks": 1
+    },
+    {
+      "type": "true_false",
+      "question": "A plain Python list is generally more memory-efficient than a NumPy array for storing and computing on large amounts of numerical data.",
+      "options": ["True", "False"],
+      "answer": "False",
+      "marks": 1
+    },
+    {
+      "type": "true_false",
+      "question": "NumPy underlies many other Data Science and ML libraries, including Pandas, Scikit-learn, TensorFlow, and PyTorch.",
+      "options": ["True", "False"],
+      "answer": "True",
+      "marks": 1
+    },
+    {
+      "type": "true_false",
+      "question": "A function's parameters (or arguments) are the named inputs it accepts, and its return value is the output it produces.",
+      "options": ["True", "False"],
+      "answer": "True",
+      "marks": 1
+    },
+    {
+      "type": "true_false",
+      "question": "Anaconda's conda package manager keeps separate sets of packages per project (environments), so one project's requirements never conflict with another's.",
+      "options": ["True", "False"],
+      "answer": "True",
+      "marks": 1
+    },
+    {
+      "type": "multi_select",
+      "question": "Which of the following are reasons libraries matter in Data Science?",
+      "options": ["They save time because common operations are already written and optimized", "They are tested extensively by large developer communities, reducing errors", "They always run slower than writing the exact same code manually in pure Python", "They can improve performance since many are built on faster languages like C"],
+      "answer": ["They save time because common operations are already written and optimized", "They are tested extensively by large developer communities, reducing errors", "They can improve performance since many are built on faster languages like C"],
+      "marks": 1
+    },
+    {
+      "type": "multi_select",
+      "question": "Which of the following are true about user-defined functions in Python?",
+      "options": ["A function is a named, reusable block of code that performs one specific, well-defined task", "Parameters go in as input, and a return value comes out as output", "A function must always modify a variable outside of itself to be useful", "Default parameter values let one function body handle both a simple case and a customized case"],
+      "answer": ["A function is a named, reusable block of code that performs one specific, well-defined task", "Parameters go in as input, and a return value comes out as output", "Default parameter values let one function body handle both a simple case and a customized case"],
+      "marks": 1
+    },
+    {
+      "type": "multi_select",
+      "question": "Which of the following are reasons dictionaries matter for data handling in Data Science?",
+      "options": ["A single row of a tabular dataset can be thought of as a dictionary of column-name keys to values", "Dictionaries provide an efficient way to map values from one set to another, such as encoding categorical variables", "Dictionaries underlie JSON, the standard format for exchanging structured data", "Dictionaries can only ever store one single value in total, never key-value pairs"],
+      "answer": ["A single row of a tabular dataset can be thought of as a dictionary of column-name keys to values", "Dictionaries provide an efficient way to map values from one set to another, such as encoding categorical variables", "Dictionaries underlie JSON, the standard format for exchanging structured data"],
+      "marks": 1
+    },
+    {
+      "type": "multi_select",
+      "question": "Which of the following are true about Jupyter Notebooks?",
+      "options": ["Code runs in small, independently re-runnable blocks called cells", "Results such as tables and charts appear immediately below the cell that produced them", "Code, explanatory text, and visuals cannot exist together in the same document", "Only the changed part of an analysis needs to be re-run, not the entire program"],
+      "answer": ["Code runs in small, independently re-runnable blocks called cells", "Results such as tables and charts appear immediately below the cell that produced them", "Only the changed part of an analysis needs to be re-run, not the entire program"],
+      "marks": 1
+    }
+  ]
+}

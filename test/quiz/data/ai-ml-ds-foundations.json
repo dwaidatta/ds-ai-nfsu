@@ -1,0 +1,149 @@
+{
+  "id": "ai-ml-ds-foundations",
+  "title": "AI, ML & Data Science: Foundations",
+  "description": "Mixed-format quiz (MCQ, true/false, select-all) on what AI is, ANI/AGI/ASI, ML vs traditional programming, and how AI, ML, Deep Learning & Data Science relate — aligned with the university question bank (Q1–Q3) and Chapter 1 of the course guide.",
+  "date": "2026-09-10",
+  "published": true,
+  "questions": [
+    {
+      "type": "mcq",
+      "question": "What is the primary objective of Artificial Intelligence?",
+      "options": ["To develop systems that can perform tasks that typically require human intelligence", "To build the fastest possible arithmetic calculators", "To replace all data storage systems with cloud servers", "To increase internet connection speed"],
+      "answer": "To develop systems that can perform tasks that typically require human intelligence",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "Unlike a calculator, which only follows fixed arithmetic rules, what is an AI system expected to do?",
+      "options": ["Handle situations that were not explicitly programmed in advance, by generalizing or adapting", "Only ever process numeric input", "Fail immediately on any unfamiliar input", "Run exclusively without any data"],
+      "answer": "Handle situations that were not explicitly programmed in advance, by generalizing or adapting",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "Who coined the term \"Artificial Intelligence\" at the 1956 Dartmouth Conference, marking the field's formal founding?",
+      "options": ["Alan Turing", "John McCarthy", "Arthur Samuel", "Frank Rosenblatt"],
+      "answer": "John McCarthy",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "Which term describes AI systems built and trained to perform one specific task well, such as recommending movies or detecting spam — and which describes almost every AI system in use today?",
+      "options": ["ANI (Artificial Narrow Intelligence)", "AGI (Artificial General Intelligence)", "ASI (Artificial Superintelligence)", "OSEMN"],
+      "answer": "ANI (Artificial Narrow Intelligence)",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "Which term describes a theoretical form of AI that could understand, learn, and apply intelligence to any intellectual task a human can, transferring knowledge flexibly across domains?",
+      "options": ["AGI (Artificial General Intelligence)", "ANI (Artificial Narrow Intelligence)", "Expert System", "OSEMN"],
+      "answer": "AGI (Artificial General Intelligence)",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "Which term describes a hypothetical stage where a machine's intelligence would exceed human intelligence in essentially every respect, relevant mainly to long-term AI safety research?",
+      "options": ["ASI (Artificial Superintelligence)", "ANI (Artificial Narrow Intelligence)", "AGI (Artificial General Intelligence)", "Deep Learning"],
+      "answer": "ASI (Artificial Superintelligence)",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "In traditional programming, what does a human programmer provide the computer, and what does the computer produce?",
+      "options": ["Rules + input → the computer produces output", "Input + output examples → the computer produces rules", "Only output, with no input needed", "Nothing; traditional programs write themselves"],
+      "answer": "Rules + input → the computer produces output",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "In Machine Learning, what is the system given, and what does it produce on its own?",
+      "options": ["Input + output examples → the system produces (learns) the rules", "Rules + input → the system produces output", "Only rules, with no data at all", "A fixed answer key that is never used"],
+      "answer": "Input + output examples → the system produces (learns) the rules",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "When does Machine Learning become essential instead of traditional programming?",
+      "options": ["When the true rule is too complex, too subtle, or simply unknown for a human to write down directly", "When the task only ever involves basic arithmetic", "When no data is available at all", "When the rule is simple and already known in advance"],
+      "answer": "When the true rule is too complex, too subtle, or simply unknown for a human to write down directly",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "Among Artificial Intelligence, Machine Learning, and Data Science, which is described as the broadest of the three fields?",
+      "options": ["Artificial Intelligence", "Machine Learning", "Data Science", "Deep Learning"],
+      "answer": "Artificial Intelligence",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "How is Deep Learning classified relative to Machine Learning?",
+      "options": ["Deep Learning is a subset of Machine Learning that uses multi-layered neural networks", "Deep Learning is broader than Machine Learning", "Deep Learning and Machine Learning are completely unrelated fields", "Deep Learning is a subset of Data Science only, unrelated to ML"],
+      "answer": "Deep Learning is a subset of Machine Learning that uses multi-layered neural networks",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "How is Data Science described in relation to Machine Learning?",
+      "options": ["A broader, more applied practice that frequently uses ML as just one of its tools", "A narrower subset contained entirely within ML", "Identical to ML, with no meaningful difference", "A field that never involves statistics"],
+      "answer": "A broader, more applied practice that frequently uses ML as just one of its tools",
+      "marks": 1
+    },
+    {
+      "type": "true_false",
+      "question": "Almost every AI system in active use today, including ANNs, CNNs, and RNNs, is an example of Narrow AI (ANI).",
+      "options": ["True", "False"],
+      "answer": "True",
+      "marks": 1
+    },
+    {
+      "type": "true_false",
+      "question": "A Narrow AI system that is excellent at chess automatically gains the ability to hold a conversation, because its intelligence transfers across tasks.",
+      "options": ["True", "False"],
+      "answer": "False",
+      "marks": 1
+    },
+    {
+      "type": "true_false",
+      "question": "In Machine Learning, the model's internal decision logic is learned from data rather than explicitly hand-written by a programmer.",
+      "options": ["True", "False"],
+      "answer": "True",
+      "marks": 1
+    },
+    {
+      "type": "true_false",
+      "question": "AGI (human-level general intelligence) already exists today and is deployed in common smartphone apps.",
+      "options": ["True", "False"],
+      "answer": "False",
+      "marks": 1
+    },
+    {
+      "type": "multi_select",
+      "question": "Which of the following are true when comparing Machine Learning to traditional programming?",
+      "options": ["ML's behavior can improve automatically as more data is provided", "Traditional programming struggles with complex, unclear, or fuzzy problems", "In ML, the rules (patterns) are hand-written by the programmer", "In traditional programming, a new situation requires the programmer to add new rules"],
+      "answer": ["ML's behavior can improve automatically as more data is provided", "Traditional programming struggles with complex, unclear, or fuzzy problems", "In traditional programming, a new situation requires the programmer to add new rules"],
+      "marks": 1
+    },
+    {
+      "type": "multi_select",
+      "question": "Which of the following are among the three objective-based \"types\" of AI, classified by their level of capability?",
+      "options": ["Narrow AI (ANI)", "General AI (AGI)", "Super AI (ASI)", "Quantum AI (QAI)"],
+      "answer": ["Narrow AI (ANI)", "General AI (AGI)", "Super AI (ASI)"],
+      "marks": 1
+    },
+    {
+      "type": "multi_select",
+      "question": "Which of the following are part of the \"scope of AI\" — the range of capabilities AI aims to cover?",
+      "options": ["Reasoning and problem-solving", "Perception (vision, speech recognition)", "Learning from experience", "Data encryption"],
+      "answer": ["Reasoning and problem-solving", "Perception (vision, speech recognition)", "Learning from experience"],
+      "marks": 1
+    },
+    {
+      "type": "multi_select",
+      "question": "Which of the following are application areas within the scope of AI?",
+      "options": ["Scientific Discovery", "Robotics and Autonomous Systems", "Policy and Governance", "Weather control"],
+      "answer": ["Scientific Discovery", "Robotics and Autonomous Systems", "Policy and Governance"],
+      "marks": 1
+    }
+  ]
+}

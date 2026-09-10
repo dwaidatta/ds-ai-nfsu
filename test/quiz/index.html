@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quizzes — Guide for NFSU DS-AI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<style>
+  :root {
+    --bg: #f6f5f2;
+    --surface: #ffffff;
+    --text: #1c1c1e;
+    --muted: #6b6b70;
+    --accent: #c9622f;
+    --accent-soft: #f4e3d7;
+    --border: #e5e2dc;
+    --radius: 14px;
+    --shadow: 0 1px 2px rgba(20, 20, 20, 0.04), 0 6px 20px rgba(20, 20, 20, 0.05);
+    --good: #2f9e5e;
+    --good-soft: #e2f4ea;
+    --bad: #d64545;
+    --bad-soft: #fbe6e6;
+    --pastel-blue-bg: #dceafc;
+    --pastel-blue-text: #3f6fb3;
+    --pastel-purple-bg: #ece3fb;
+    --pastel-purple-text: #7c5cbf;
+    --pastel-amber-bg: #fdf0cd;
+    --pastel-amber-text: #a9791b;
+    --pastel-pink-bg: #fbe3ec;
+    --pastel-pink-text: #bd5a86;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #131314;
+      --surface: #1c1c1e;
+      --text: #f0efec;
+      --muted: #9a9a9e;
+      --accent: #e08a52;
+      --accent-soft: #3a2a1e;
+      --border: #2c2c2e;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.35);
+      --good: #4cbd82;
+      --good-soft: #1c3327;
+      --bad: #e5716f;
+      --bad-soft: #3a2020;
+      --pastel-blue-bg: #1c2a3d;
+      --pastel-blue-text: #8fb8ec;
+      --pastel-purple-bg: #29213e;
+      --pastel-purple-text: #c4aef2;
+      --pastel-amber-bg: #332a12;
+      --pastel-amber-text: #e8c876;
+      --pastel-pink-bg: #33202a;
+      --pastel-pink-text: #ee9dbf;
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    width: 100%;
+    max-width: 560px;
+    padding: clamp(24px, 6vw, 56px) clamp(16px, 5vw, 28px);
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 18px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .back-link:hover { color: var(--accent); }
+
+  .page-header { margin-bottom: clamp(20px, 5vw, 32px); }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .subtitle {
+    margin: 8px 0 0;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+  }
+
+  /* ---------- Dashboard ---------- */
+  .dashboard-card { margin-bottom: clamp(24px, 6vw, 36px); }
+
+  .dashboard-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 16px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .dashboard-title i { font-size: 0.95rem; color: var(--accent); }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 10px;
+  }
+
+  .stat-tile {
+    border-radius: 12px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .stat-tile .stat-value { font-size: 1.35rem; font-weight: 800; }
+  .stat-tile .stat-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    opacity: 0.85;
+  }
+
+  .stat-tile.pastel-blue { background: var(--pastel-blue-bg); color: var(--pastel-blue-text); }
+  .stat-tile.pastel-purple { background: var(--pastel-purple-bg); color: var(--pastel-purple-text); }
+  .stat-tile.pastel-green { background: var(--good-soft); color: var(--good); }
+
+  .empty-dashboard {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--muted);
+    font-size: 0.88rem;
+    padding: 4px 0;
+  }
+
+  .empty-dashboard i { font-size: 1.4rem; color: var(--accent); flex-shrink: 0; }
+
+  .recent-title {
+    margin: 18px 0 8px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--muted);
+  }
+
+  .recent-list { display: flex; flex-direction: column; gap: 4px; }
+
+  /* ---------- Attempt row (shared: Recent Activity + per-quiz attempts panel) ---------- */
+  .attempt-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 9px 10px;
+    margin: 0 -10px;
+    border-radius: 9px;
+    color: inherit;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: background 0.15s ease;
+  }
+
+  a.attempt-row:hover { background: var(--accent-soft); }
+
+  .attempt-row.is-disabled { opacity: 0.65; cursor: default; }
+
+  .attempt-row-icon {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+  }
+
+  .attempt-row-main { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .attempt-row-title { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .attempt-row-meta { color: var(--muted); font-size: 0.76rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .attempt-row-score {
+    flex-shrink: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+
+  .attempt-row-pct { font-weight: 800; font-size: 0.92rem; }
+  .attempt-row-marks { color: var(--muted); font-size: 0.76rem; }
+
+  .attempt-row.tone-good .attempt-row-icon { background: var(--good-soft); color: var(--good); }
+  .attempt-row.tone-good .attempt-row-pct { color: var(--good); }
+  .attempt-row.tone-mid .attempt-row-icon { background: var(--pastel-amber-bg); color: var(--pastel-amber-text); }
+  .attempt-row.tone-mid .attempt-row-pct { color: var(--pastel-amber-text); }
+  .attempt-row.tone-bad .attempt-row-icon { background: var(--bad-soft); color: var(--bad); }
+  .attempt-row.tone-bad .attempt-row-pct { color: var(--bad); }
+
+  .reset-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 16px;
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--muted);
+    font-family: inherit;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .reset-link:hover { color: var(--bad, #d64545); }
+
+  .storage-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    margin: 10px 0 0;
+    color: var(--muted);
+    font-size: 0.74rem;
+    line-height: 1.5;
+  }
+
+  /* ---------- Quiz list ---------- */
+  .main-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .quiz-card-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .attempts-toggle {
+    align-self: flex-start;
+    margin-left: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    padding: 2px 0;
+    color: var(--muted);
+    font-family: inherit;
+    font-size: 0.76rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .attempts-toggle:hover { color: var(--accent); }
+  .attempts-toggle i { color: var(--accent); font-size: 0.7rem; transition: transform 0.15s ease; }
+  .attempts-toggle.open i { transform: rotate(180deg); }
+
+  .attempts-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 2px 0 0;
+    padding: 6px 10px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+
+  .attempts-panel[hidden] { display: none; }
+
+  .quiz-card {
+    display: block;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 16px 18px;
+    text-decoration: none;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+  }
+
+  .quiz-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .quiz-card:active { transform: translateY(0); }
+
+  .quiz-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .quiz-card-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+  }
+
+  .quiz-card-label i {
+    font-size: 1.1rem;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .quiz-card-text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+
+  .quiz-card-title { font-size: 1rem; font-weight: 600; }
+
+  .quiz-card-meta { font-size: 0.78rem; color: var(--muted); }
+
+  .quiz-card-arrow { color: var(--accent); flex-shrink: 0; transition: transform 0.15s ease; }
+  .quiz-card:hover .quiz-card-arrow { transform: translateX(3px); }
+
+  .quiz-card-stats {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  .stat-chip {
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: var(--muted);
+  }
+
+  .stat-chip strong { color: var(--text); font-weight: 700; }
+
+  .resume-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--pastel-pink-bg);
+    color: var(--pastel-pink-text);
+    border-radius: 999px;
+    padding: 3px 10px;
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+
+  .empty-msg, .loading-msg {
+    color: var(--muted);
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 30px 0;
+  }
+
+  /* ---------- Modal ---------- */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 100;
+  }
+
+  .modal-overlay.open { display: flex; }
+
+  .modal-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 22px;
+    max-width: 360px;
+    width: 100%;
+  }
+
+  .modal-title { margin: 0 0 8px; font-size: 1.05rem; font-weight: 700; }
+  .modal-message { margin: 0 0 18px; font-size: 0.88rem; color: var(--muted); line-height: 1.5; }
+  .modal-actions { display: flex; gap: 10px; }
+
+  .modal-btn {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border-radius: 10px;
+    padding: 11px 14px;
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+  }
+
+  .modal-btn:hover { transform: translateY(-1px); opacity: 0.94; }
+  .modal-btn:active { transform: translateY(0); }
+
+  .modal-btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+
+  .modal-btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+  }
+
+  .modal-btn-danger {
+    background: var(--bad, #d64545);
+    color: #fff;
+    border: none;
+  }
+</style>
+</head>
+
+<body>
+  <div class="page">
+    <a class="back-link" href="../../index.html"><i class="bi bi-arrow-left"></i> Course guide</a>
+
+    <header class="page-header">
+      <h1>Quizzes</h1>
+      <p class="subtitle">Test yourself on each module — instant scoring, no sign-in needed.</p>
+    </header>
+
+    <section class="card dashboard-card">
+      <h2 class="dashboard-title"><i class="bi bi-graph-up"></i> Your Progress</h2>
+      <div id="dashboard-body"></div>
+    </section>
+
+    <div class="main-buttons" id="quiz-list">
+      <p class="loading-msg">Loading quizzes…</p>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal-box">
+      <h3 class="modal-title" id="modal-title"></h3>
+      <p class="modal-message" id="modal-message"></p>
+      <div class="modal-actions">
+        <button class="modal-btn modal-btn-outline" id="modal-cancel-btn"></button>
+        <button class="modal-btn modal-btn-primary" id="modal-confirm-btn"></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="storage.js"></script>
+  <script>
+    // ---------- Quiz catalogue ----------
+    // This is a static site, so the page can't list a directory on its
+    // own — manifest.json holds the filenames present in ./data/. Add a
+    // new quiz JSON there, list its filename in manifest.json, and its
+    // own JSON supplies every other detail (title, description, date,
+    // whether it's published).
+    const listEl = document.getElementById('quiz-list');
+    const dashboardBody = document.getElementById('dashboard-body');
+
+    function showConfirmModal({ title = 'Confirm', message, confirmLabel = 'Confirm', cancelLabel = 'Cancel', danger = false }) {
+      return new Promise((resolve) => {
+        const overlay = document.getElementById('modal-overlay');
+        const confirmBtn = document.getElementById('modal-confirm-btn');
+        const cancelBtn = document.getElementById('modal-cancel-btn');
+
+        document.getElementById('modal-title').textContent = title;
+        document.getElementById('modal-message').textContent = message;
+        confirmBtn.textContent = confirmLabel;
+        confirmBtn.classList.toggle('modal-btn-primary', !danger);
+        confirmBtn.classList.toggle('modal-btn-danger', danger);
+        cancelBtn.textContent = cancelLabel;
+
+        function cleanup(result) {
+          overlay.classList.remove('open');
+          confirmBtn.removeEventListener('click', onConfirm);
+          cancelBtn.removeEventListener('click', onCancel);
+          overlay.removeEventListener('click', onOverlayClick);
+          document.removeEventListener('keydown', onKeydown);
+          resolve(result);
+        }
+        function onConfirm() { cleanup(true); }
+        function onCancel() { cleanup(false); }
+        function onOverlayClick(e) { if (e.target === overlay) cleanup(false); }
+        function onKeydown(e) { if (e.key === 'Escape') cleanup(false); }
+
+        confirmBtn.addEventListener('click', onConfirm);
+        cancelBtn.addEventListener('click', onCancel);
+        overlay.addEventListener('click', onOverlayClick);
+        document.addEventListener('keydown', onKeydown);
+        overlay.classList.add('open');
+        confirmBtn.focus();
+      });
+    }
+
+    function fmtDate(iso) {
+      const d = new Date(iso);
+      return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+
+    function fmtDateTime(iso) {
+      const d = new Date(iso);
+      const date = d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+      const time = d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
+      return `${date} · ${time}`;
+    }
+
+    function fmtDuration(ms) {
+      if (!ms || ms < 0) return null;
+      const totalSeconds = Math.round(ms / 1000);
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+      return minutes > 0 ? `${minutes}m ${seconds}s` : `${seconds}s`;
+    }
+
+    function scoreTone(pct) {
+      if (pct >= 80) return 'tone-good';
+      if (pct >= 50) return 'tone-mid';
+      return 'tone-bad';
+    }
+
+    // Single row component shared by the dashboard's Recent Activity list and
+    // each quiz card's expandable attempts panel, so both look and behave
+    // consistently. Rows for attempts saved before detailed history was added
+    // (no per-question snapshot) render as plain, non-clickable summaries.
+    function renderAttemptRow(h, { showTitle = true } = {}) {
+      const hasDetail = Array.isArray(h.questions) && h.questions.length;
+      const row = document.createElement(hasDetail ? 'a' : 'div');
+      row.className = `attempt-row ${scoreTone(h.pct)}${hasDetail ? '' : ' is-disabled'}`;
+      if (hasDetail) row.href = `take.html?attempt=${encodeURIComponent(h.id)}`;
+
+      const metaParts = [fmtDateTime(h.date)];
+      const durationLabel = fmtDuration(h.durationMs);
+      if (durationLabel) metaParts.push(durationLabel);
+      if (!hasDetail) metaParts.push('summary only');
+
+      row.innerHTML = `
+        <span class="attempt-row-icon"><i class="bi bi-check2-circle"></i></span>
+        <span class="attempt-row-main">
+          ${showTitle ? '<span class="attempt-row-title"></span>' : ''}
+          <span class="attempt-row-meta"></span>
+        </span>
+        <span class="attempt-row-score">
+          <span class="attempt-row-pct"></span>
+          <span class="attempt-row-marks"></span>
+        </span>
+      `;
+      if (showTitle) row.querySelector('.attempt-row-title').textContent = h.quizTitle;
+      row.querySelector('.attempt-row-meta').textContent = metaParts.join(' · ');
+      row.querySelector('.attempt-row-pct').textContent = `${h.pct}%`;
+      row.querySelector('.attempt-row-marks').textContent = `${h.earned}/${h.total}`;
+      return row;
+    }
+
+    function renderDashboard(publishedIds) {
+      const history = QuizStorage.getHistory();
+      const inProgressCount = Object.keys(localStorage).filter((k) => {
+        if (!k.startsWith('dsaiQuiz:progress:')) return false;
+        const quizId = k.slice('dsaiQuiz:progress:'.length);
+        const p = QuizStorage.getProgress(quizId);
+        return p && p.answers && Object.keys(p.answers).length;
+      }).length;
+
+      if (!history.length && !inProgressCount) {
+        dashboardBody.innerHTML = `
+          <div class="empty-dashboard">
+            <i class="bi bi-emoji-smile"></i>
+            <span>No attempts yet — take a quiz below and your scores will show up here.</span>
+          </div>
+        `;
+        return;
+      }
+
+      const attemptsCount = history.length;
+      const completedIds = new Set(history.map((h) => h.quizId));
+      const completedCount = publishedIds.filter((id) => completedIds.has(id)).length;
+      const avgPct = attemptsCount ? Math.round(history.reduce((s, h) => s + h.pct, 0) / attemptsCount) : 0;
+
+      const recent = [...history].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 4);
+
+      dashboardBody.innerHTML = `
+        <div class="stat-grid">
+          <div class="stat-tile pastel-blue">
+            <span class="stat-value">${completedCount}/${publishedIds.length}</span>
+            <span class="stat-label">Quizzes Tried</span>
+          </div>
+          <div class="stat-tile pastel-purple">
+            <span class="stat-value">${attemptsCount}</span>
+            <span class="stat-label">Total Attempts</span>
+          </div>
+          <div class="stat-tile pastel-green">
+            <span class="stat-value">${avgPct}%</span>
+            <span class="stat-label">Average Score</span>
+          </div>
+        </div>
+        ${recent.length ? `
+          <h3 class="recent-title">Recent Activity</h3>
+          <div class="recent-list" id="recent-list"></div>
+        ` : ''}
+        <button class="reset-link" id="reset-data-btn"><i class="bi bi-trash3"></i> Clear my saved data</button>
+        <p class="storage-note"><i class="bi bi-info-circle"></i> Progress and scores are saved only in this browser — they won't follow you to another device.</p>
+      `;
+
+      if (recent.length) {
+        const recentList = document.getElementById('recent-list');
+        recent.forEach((h) => {
+          recentList.appendChild(renderAttemptRow(h, { showTitle: true }));
+        });
+      }
+
+      document.getElementById('reset-data-btn').addEventListener('click', async () => {
+        const ok = await showConfirmModal({
+          title: 'Clear saved data',
+          message: 'Clear all saved quiz progress and history from this browser? This cannot be undone.',
+          confirmLabel: 'Clear data',
+          cancelLabel: 'Cancel',
+          danger: true,
+        });
+        if (ok) {
+          QuizStorage.clearAll();
+          renderDashboard(publishedIds);
+          renderQuizList(quizzesCache);
+        }
+      });
+    }
+
+    let quizzesCache = [];
+
+    function renderQuizList(quizzes) {
+      listEl.innerHTML = '';
+
+      if (!quizzes.length) {
+        listEl.innerHTML = '<p class="empty-msg">No quizzes available yet — check back soon.</p>';
+        return;
+      }
+
+      quizzes.forEach(({ file, data }) => {
+        const wrap = document.createElement('div');
+        wrap.className = 'quiz-card-item';
+
+        const a = document.createElement('a');
+        a.className = 'quiz-card';
+        a.href = `take.html?src=${encodeURIComponent(file)}`;
+
+        const dateLabel = data.date ? fmtDate(data.date) : '';
+        const metaParts = [`${data.questions.length} questions`];
+        if (dateLabel) metaParts.push(dateLabel);
+
+        const history = QuizStorage.getHistory().filter((h) => h.quizId === data.id);
+        const progress = QuizStorage.getProgress(data.id);
+        const hasResume = progress && progress.answers && Object.keys(progress.answers).length;
+
+        let statsHtml = '';
+        let last = null;
+        if (history.length) {
+          const best = Math.max(...history.map((h) => h.pct));
+          last = history.reduce((a2, b2) => (new Date(a2.date) > new Date(b2.date) ? a2 : b2));
+          statsHtml = `
+            <span class="stat-chip">Attempts: <strong>${history.length}</strong></span>
+            <span class="stat-chip">Best: <strong>${best}%</strong></span>
+            <span class="stat-chip">Last: <strong>${fmtDate(last.date)}</strong></span>
+          `;
+        } else {
+          statsHtml = '<span class="stat-chip">Not attempted yet</span>';
+        }
+        if (hasResume) {
+          statsHtml += '<span class="resume-chip"><i class="bi bi-play-circle-fill"></i> Resume available</span>';
+        }
+
+        a.innerHTML = `
+          <div class="quiz-card-top">
+            <span class="quiz-card-label">
+              <i class="bi bi-patch-question"></i>
+              <span class="quiz-card-text">
+                <span class="quiz-card-title"></span>
+                <span class="quiz-card-meta"></span>
+              </span>
+            </span>
+            <i class="bi bi-arrow-right quiz-card-arrow"></i>
+          </div>
+          <div class="quiz-card-stats">${statsHtml}</div>
+        `;
+        a.querySelector('.quiz-card-title').textContent = data.title || 'Untitled quiz';
+        a.querySelector('.quiz-card-meta').textContent = metaParts.join(' · ');
+
+        wrap.appendChild(a);
+
+        // A separate toggle + panel (siblings of the quiz-card anchor, not
+        // nested inside it) that expands to list every saved attempt for
+        // this quiz, each reopenable for review/share/PDF.
+        if (history.length) {
+          const sorted = [...history].sort((a2, b2) => new Date(b2.date) - new Date(a2.date));
+
+          const toggle = document.createElement('button');
+          toggle.type = 'button';
+          toggle.className = 'attempts-toggle';
+          toggle.innerHTML = `<i class="bi bi-chevron-down"></i> <span>${history.length} attempt${history.length > 1 ? 's' : ''} saved</span>`;
+
+          const panel = document.createElement('div');
+          panel.className = 'attempts-panel';
+          panel.hidden = true;
+          sorted.forEach((h) => panel.appendChild(renderAttemptRow(h, { showTitle: false })));
+
+          toggle.addEventListener('click', () => {
+            panel.hidden = !panel.hidden;
+            toggle.classList.toggle('open', !panel.hidden);
+          });
+
+          wrap.appendChild(toggle);
+          wrap.appendChild(panel);
+        }
+
+        listEl.appendChild(wrap);
+      });
+    }
+
+    fetch('manifest.json')
+      .then((res) => (res.ok ? res.json() : []))
+      .then((filenames) => (Array.isArray(filenames) ? filenames : []))
+      .catch(() => [])
+      .then((filenames) =>
+        Promise.all(
+          filenames.map((name) => {
+            const file = `data/${name}`;
+            return fetch(file)
+              .then((res) => (res.ok ? res.json() : null))
+              .then((data) => (data ? { file, data } : null))
+              .catch(() => null);
+          })
+        )
+      )
+      .then((results) => {
+        const quizzes = results
+          .filter((r) => r && r.data && r.data.published && Array.isArray(r.data.questions) && r.data.questions.length)
+          .sort((a, b) => new Date(a.data.date || 0) - new Date(b.data.date || 0));
+
+        quizzesCache = quizzes;
+        const publishedIds = quizzes.map((q) => q.data.id).filter(Boolean);
+
+        renderDashboard(publishedIds);
+        renderQuizList(quizzes);
+      });
+  </script>
+</body>
+</html>

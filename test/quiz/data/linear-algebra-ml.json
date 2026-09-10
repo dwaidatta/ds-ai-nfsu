@@ -1,0 +1,149 @@
+{
+  "id": "linear-algebra-ml",
+  "title": "Linear Algebra for Machine Learning",
+  "description": "Mixed-format quiz (MCQ, true/false, select-all) on scalars, vectors, matrices, matrix operations, why matrix multiplication is fundamental to neural networks, the dot product, and systems of linear equations — aligned with the university question bank (Q11–Q15).",
+  "date": "2026-09-10",
+  "published": true,
+  "questions": [
+    {
+      "type": "mcq",
+      "question": "What is a scalar in the context of linear algebra for ML?",
+      "options": ["A single numerical value that has magnitude but no direction", "An ordered list of numbers", "A rectangular grid of numbers arranged in rows and columns", "A type of loss function"],
+      "answer": "A single numerical value that has magnitude but no direction",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "What is a vector, in the context of linear algebra?",
+      "options": ["An ordered list of numbers, such as [170, 65, 24]", "A single numerical value only", "A rectangular grid of numbers in rows and columns", "A probability distribution over outcomes"],
+      "answer": "An ordered list of numbers, such as [170, 65, 24]",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "What is a matrix, in the context of linear algebra?",
+      "options": ["A rectangular grid of numbers arranged in rows and columns", "A single numerical value", "An unordered collection of unique numbers", "A function that squashes input into a range between 0 and 1"],
+      "answer": "A rectangular grid of numbers arranged in rows and columns",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "When an entire dataset is represented as a matrix, what do its rows and columns typically represent?",
+      "options": ["Rows are individual records/observations, and columns are features", "Rows are model weights, and columns are biases", "Rows are labels only, and columns are irrelevant", "Rows are activation functions, and columns are loss values"],
+      "answer": "Rows are individual records/observations, and columns are features",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "What does the transpose of a matrix, written A^T, do?",
+      "options": ["Swaps its rows and columns", "Multiplies every element by negative one", "Deletes every element below the main diagonal", "Adds a row of biases to the matrix"],
+      "answer": "Swaps its rows and columns",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "Which matrix operation combines rows of one matrix with columns of another, multiplying and summing corresponding values to produce each output entry?",
+      "options": ["Matrix multiplication", "Scalar multiplication", "Elementwise addition", "Transposition"],
+      "answer": "Matrix multiplication",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "For a matrix A with dimensions (m × n) multiplied by a matrix B with dimensions (n × p), what are the dimensions of the resulting product AB?",
+      "options": ["m × p", "n × n", "m × n", "p × m"],
+      "answer": "m × p",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "Why is matrix multiplication described as fundamental to neural networks?",
+      "options": ["It efficiently computes the weighted sum of inputs for an entire layer at once, instead of one connection at a time", "It is used only for loading raw data files into memory", "It completely replaces the need for activation functions", "It is always slower than computing each connection individually"],
+      "answer": "It efficiently computes the weighted sum of inputs for an entire layer at once, instead of one connection at a time",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "How is the dot product of two vectors calculated?",
+      "options": ["Multiply corresponding elements of the two vectors and sum the results into a single number", "Subtract the corresponding elements of the two vectors", "Stack the two vectors on top of each other to form a matrix", "Take the average of every element in both vectors"],
+      "answer": "Multiply corresponding elements of the two vectors and sum the results into a single number",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "A large positive dot product between two vectors generally indicates that the vectors:",
+      "options": ["Point in a broadly similar direction", "Are exactly perpendicular to each other", "Point in broadly opposite directions", "Have no relationship to each other's direction"],
+      "answer": "Point in a broadly similar direction",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "In a single artificial neuron, the predicted output is calculated as:",
+      "options": ["The dot product of the input features and the learned weights, plus a bias term", "The transpose of the input feature vector", "The number of training epochs completed so far", "The mode of all the input feature values"],
+      "answer": "The dot product of the input features and the learned weights, plus a bias term",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "In linear regression, a system of linear equations Ax = b is used, where x represents:",
+      "options": ["The unknown model parameters (weights) being solved for", "Only the known input feature values", "The final computed loss value", "The number of layers in the model"],
+      "answer": "The unknown model parameters (weights) being solved for",
+      "marks": 1
+    },
+    {
+      "type": "true_false",
+      "question": "Matrix multiplication is the same operation as multiplying two matrices element by element.",
+      "options": ["True", "False"],
+      "answer": "False",
+      "marks": 1
+    },
+    {
+      "type": "true_false",
+      "question": "Every entry of a matrix product AB is itself computed as a dot product between one row of A and one column of B.",
+      "options": ["True", "False"],
+      "answer": "True",
+      "marks": 1
+    },
+    {
+      "type": "true_false",
+      "question": "Because real datasets usually have far more data points (equations) than unknowns, and the points never lie perfectly on a line due to noise, ML typically reframes the problem as minimizing overall error rather than solving the system exactly.",
+      "options": ["True", "False"],
+      "answer": "True",
+      "marks": 1
+    },
+    {
+      "type": "true_false",
+      "question": "Matrix inversion is always fast, numerically stable, and never causes computational problems in machine learning.",
+      "options": ["True", "False"],
+      "answer": "False",
+      "marks": 1
+    },
+    {
+      "type": "multi_select",
+      "question": "Which of the following are common matrix operations used in Machine Learning?",
+      "options": ["Addition and subtraction", "Scalar multiplication", "Matrix multiplication", "Randomly shuffling the matrix's columns"],
+      "answer": ["Addition and subtraction", "Scalar multiplication", "Matrix multiplication"],
+      "marks": 1
+    },
+    {
+      "type": "multi_select",
+      "question": "Which of the following are true about scalars, vectors, and matrices?",
+      "options": ["A vector is a one-dimensional, ordered list of numbers", "A matrix is a two-dimensional grid of numbers", "A scalar has both magnitude and direction", "In deep learning, the weights connecting layers of neurons are stored in matrices"],
+      "answer": ["A vector is a one-dimensional, ordered list of numbers", "A matrix is a two-dimensional grid of numbers", "In deep learning, the weights connecting layers of neurons are stored in matrices"],
+      "marks": 1
+    },
+    {
+      "type": "multi_select",
+      "question": "Which of the following are real applications of the dot product?",
+      "options": ["Calculating the weighted sum of inputs inside a single neuron", "Measuring similarity or alignment between two vectors", "Calculating a vector's norm (length)", "Sorting a list of strings into alphabetical order"],
+      "answer": ["Calculating the weighted sum of inputs inside a single neuron", "Measuring similarity or alignment between two vectors", "Calculating a vector's norm (length)"],
+      "marks": 1
+    },
+    {
+      "type": "multi_select",
+      "question": "Which of the following are given as reasons matrix multiplication matters for training modern, large-scale neural networks?",
+      "options": ["It allows many weighted-sum calculations to be performed together, in parallel", "GPUs (graphics hardware) are built to accelerate exactly this operation efficiently", "It is what makes training very large and deep networks computationally feasible", "It removes the need for any loss function during training"],
+      "answer": ["It allows many weighted-sum calculations to be performed together, in parallel", "GPUs (graphics hardware) are built to accelerate exactly this operation efficiently", "It is what makes training very large and deep networks computationally feasible"],
+      "marks": 1
+    }
+  ]
+}

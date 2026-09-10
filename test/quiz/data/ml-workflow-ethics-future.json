@@ -1,0 +1,149 @@
+{
+  "id": "ml-workflow-ethics-future",
+  "title": "ML Workflow, Math's Role, Ethics & the Future of AI",
+  "description": "Mixed-format quiz (MCQ, true/false, select-all) on the end-to-end Machine Learning workflow, the role of mathematics in ML, how data quality affects models, ethical issues in AI, and the future scope of AI/ML — aligned with the university question bank (Q70–Q74).",
+  "date": "2026-09-10",
+  "published": true,
+  "questions": [
+    {
+      "type": "mcq",
+      "question": "In the end-to-end ML workflow, which stage comes immediately after \"Data collection\"?",
+      "options": ["Data cleaning and preparation", "Deployment and monitoring", "Model selection", "Hyperparameter tuning"],
+      "answer": "Data cleaning and preparation",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "Which stage of the ML workflow involves dividing data into training, validation, and testing sets, possibly using cross-validation?",
+      "options": ["Splitting data", "Problem definition", "Evaluation", "Deployment and monitoring"],
+      "answer": "Splitting data",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "In the ML workflow, what does the \"Training\" stage involve?",
+      "options": ["Allowing the model to learn patterns from the training data using gradient-based optimization", "Writing the initial problem statement", "Cleaning missing values from the raw dataset", "Deploying the finished model into production"],
+      "answer": "Allowing the model to learn patterns from the training data using gradient-based optimization",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "Why is \"Deployment and monitoring\" treated as an ongoing responsibility rather than a one-time final step?",
+      "options": ["Because real-world data can drift away from the training data's patterns over time", "Because deployed models are never evaluated again under any circumstances", "Because monitoring must happen before any data is ever collected", "Because deployment always occurs before model training"],
+      "answer": "Because real-world data can drift away from the training data's patterns over time",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "Which branch of mathematics enables data to be represented and transformed as vectors and matrices, and underlies every calculation inside a neural network layer?",
+      "options": ["Linear algebra", "Probability", "Calculus", "Descriptive statistics"],
+      "answer": "Linear algebra",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "Which mathematical concept, drawn from calculus, describes exactly how a model's parameters should be adjusted to reduce error during training?",
+      "options": ["The gradient", "The mode", "The covariance", "The confusion matrix"],
+      "answer": "The gradient",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "What principle is often summarized as \"garbage in, garbage out\" in the context of Machine Learning models?",
+      "options": ["A model's performance is fundamentally limited by the quality of the data it is trained on", "Models always perform best when trained on the smallest possible dataset", "Data quality has no measurable effect on model performance", "Only the choice of algorithm matters, never the underlying data"],
+      "answer": "A model's performance is fundamentally limited by the quality of the data it is trained on",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "How can missing values in training data affect a model?",
+      "options": ["They can bias the model toward the records that happen to be complete", "They always improve the model's overall accuracy", "They have no possible effect on model performance", "They only ever affect unsupervised learning models"],
+      "answer": "They can bias the model toward the records that happen to be complete",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "What can happen if a model's training data contains societal or historical bias?",
+      "options": ["The model can learn and even amplify that bias, leading to unfair or discriminatory outcomes", "The model automatically detects and removes the bias on its own", "Bias in training data only ever affects unsupervised learning tasks", "Bias in the data has no effect whatsoever on the model's predictions"],
+      "answer": "The model can learn and even amplify that bias, leading to unfair or discriminatory outcomes",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "Which ethical concern refers to the difficulty of understanding or explaining how a complex model, such as a deep neural network, arrives at its decisions (the \"black box\" problem)?",
+      "options": ["Transparency and explainability", "Privacy", "Accountability", "Bias and fairness"],
+      "answer": "Transparency and explainability",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "Which ethical concern involves determining who is responsible when an AI system makes a harmful or incorrect decision?",
+      "options": ["Accountability", "Privacy", "Transparency and explainability", "Bias and fairness"],
+      "answer": "Accountability",
+      "marks": 1
+    },
+    {
+      "type": "mcq",
+      "question": "Which of the following is a growing future direction in AI, aimed directly at addressing the \"black box\" transparency problem?",
+      "options": ["Explainable AI (XAI)", "Traditional rule-based programming", "The historical AI winters", "One-hot encoding of categorical data"],
+      "answer": "Explainable AI (XAI)",
+      "marks": 1
+    },
+    {
+      "type": "true_false",
+      "question": "An insufficient quantity of training data can prevent a model from learning a pattern reliably, potentially leading to underfitting.",
+      "options": ["True", "False"],
+      "answer": "True",
+      "marks": 1
+    },
+    {
+      "type": "true_false",
+      "question": "Statistics and probability provide the tools to summarize data and reason about uncertainty formally.",
+      "options": ["True", "False"],
+      "answer": "True",
+      "marks": 1
+    },
+    {
+      "type": "true_false",
+      "question": "Handling personal or sensitive data, such as medical records, requires no special safeguards, since Machine Learning models are private by default.",
+      "options": ["True", "False"],
+      "answer": "False",
+      "marks": 1
+    },
+    {
+      "type": "true_false",
+      "question": "A model that performs perfectly on its training data but generalizes poorly to new, unseen data is, for practical purposes, not considered a useful model.",
+      "options": ["True", "False"],
+      "answer": "True",
+      "marks": 1
+    },
+    {
+      "type": "multi_select",
+      "question": "Which of the following are stages of the end-to-end ML workflow?",
+      "options": ["Problem definition", "Data collection", "Model selection", "Permanently ignoring evaluation metrics"],
+      "answer": ["Problem definition", "Data collection", "Model selection"],
+      "marks": 1
+    },
+    {
+      "type": "multi_select",
+      "question": "Which branches of mathematics are described as foundational to building ML models?",
+      "options": ["Linear algebra", "Calculus (gradients)", "Statistics and probability", "Organic chemistry"],
+      "answer": ["Linear algebra", "Calculus (gradients)", "Statistics and probability"],
+      "marks": 1
+    },
+    {
+      "type": "multi_select",
+      "question": "Which of the following are ethical issues in AI and Data Science?",
+      "options": ["Bias and fairness", "Privacy", "Transparency and explainability", "Increasing internet bandwidth"],
+      "answer": ["Bias and fairness", "Privacy", "Transparency and explainability"],
+      "marks": 1
+    },
+    {
+      "type": "multi_select",
+      "question": "Which of the following are emerging future directions for AI and ML?",
+      "options": ["More data-efficient learning methods that need less labeled data", "Explainable AI (XAI)", "Increasingly capable generative AI systems", "The complete elimination of all computing hardware"],
+      "answer": ["More data-efficient learning methods that need less labeled data", "Explainable AI (XAI)", "Increasingly capable generative AI systems"],
+      "marks": 1
+    }
+  ]
+}
