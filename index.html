@@ -173,6 +173,39 @@
     transform: translateY(0);
   }
 
+  /* ---------- Inline reference links: copy the <a class="inline-link">
+     to add another entry ---------- */
+  .reference-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    margin: 0;
+  }
+
+  .inline-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+    padding-bottom: 1px;
+    border-bottom: 1px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .inline-link i {
+    color: var(--accent);
+    font-size: 0.95rem;
+    flex-shrink: 0;
+  }
+
+  .inline-link:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
   /* ---------- Simple content card (e.g. the schedule list) ---------- */
   .card {
     background: var(--surface);
@@ -382,16 +415,40 @@
   }
 
   .syllabus-module {
-    padding: 18px 20px;
+    padding: 0;
+    overflow: hidden;
   }
 
   .syllabus-title {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin: 0 0 12px;
+    margin: 0;
+    padding: 16px 20px;
     font-size: 0.95rem;
     font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .syllabus-title::-webkit-details-marker {
+    display: none;
+  }
+
+  .syllabus-chevron {
+    margin-left: auto;
+    flex-shrink: 0;
+    color: var(--muted);
+    font-size: 0.8rem;
+    transition: transform 0.15s ease;
+  }
+
+  .syllabus-module[open] .syllabus-chevron {
+    transform: rotate(180deg);
+  }
+
+  .syllabus-body {
+    padding: 0 20px 18px;
   }
 
   .syllabus-num {
@@ -443,13 +500,13 @@
 
     <header class="page-header">
       <h1>Guide for NFSU DS-AI Course</h1>
-      <p class="subtitle">Links, exercises, and classes taken in one place.</p>
+      <p class="subtitle">Course materials, the syllabus, live class schedule, and self-check quizzes — all in one place.</p>
       <p class="disclaimer"><i class="bi bi-info-circle"></i> This is an unofficial guide — not an official NFSU resource.</p>
     </header>
 
-    <!-- ============ SECTION: Resources ============ -->
+    <!-- ============ SECTION: Course Materials ============ -->
     <section class="section">
-      <h2 class="section-title"><i class="bi bi-link-45deg"></i> Resources</h2>
+      <h2 class="section-title"><i class="bi bi-journal-bookmark"></i> Course Materials</h2>
       <div class="main-buttons">
         <!-- Copy this <a> block to add another resource link -->
         <a class="resource-button" href="https://github.com/dwaidatta/ds-ai-nfsu" target="_blank">
@@ -462,6 +519,10 @@
         </a>
         <a class="resource-button" href="https://colab.research.google.com/drive/1GbcrCG3MMPGPSAVLWQBOtuzba5p3_NWr?usp=sharing" target="_blank">
           <span class="resource-label"><i class="bi bi-journal-code"></i> Live Class Notebook</span>
+          <i class="bi bi-arrow-right resource-arrow"></i>
+        </a>
+        <a class="resource-button" href="https://colab.research.google.com/drive/1jcuL_LbFLsnlaxBdGkXNkNhuUc4Ip5lU?usp=sharing" target="_blank">
+          <span class="resource-label"><i class="bi bi-pencil-square"></i> Practice Exercise Notebook</span>
           <i class="bi bi-arrow-right resource-arrow"></i>
         </a>
       </div>
@@ -482,66 +543,32 @@
     <section class="section">
       <h2 class="section-title"><i class="bi bi-mortarboard"></i> Syllabus</h2>
       <div class="syllabus-list">
-        <!-- Copy this .syllabus-module block to add another module -->
-        <div class="syllabus-module card">
-          <h3 class="syllabus-title"><span class="syllabus-num">1</span> Introduction to Python</h3>
+        <!-- Copy this <details class="syllabus-module"> block to add another module -->
+        <details class="syllabus-module card" open>
+          <summary class="syllabus-title"><span class="syllabus-num">1</span> Introduction to Python <i class="bi bi-chevron-down syllabus-chevron"></i></summary>
           <div class="syllabus-body">
             <p><strong>Python:</strong> Setting up environment, basic python commands, creating python scripts, conditions, loops, list, dictionary, user defined functions, introduction to anaconda, working with numpy, pandas, matplotlib.</p>
             <p><strong>Mathematics for machine learning:</strong> Vectors, matrices, linear equations, mean, median, mode, standard deviation, variance, probability, correlation, regression, handling and representing data.</p>
           </div>
-        </div>
+        </details>
 
-        <div class="syllabus-module card">
-          <h3 class="syllabus-title"><span class="syllabus-num">2</span> Machine Learning</h3>
+        <details class="syllabus-module card">
+          <summary class="syllabus-title"><span class="syllabus-num">2</span> Machine Learning <i class="bi bi-chevron-down syllabus-chevron"></i></summary>
           <div class="syllabus-body">
             <p>Definition and history of AI, defining machine learning, applications of ML, issues and challenges in ML, types of ML, basics of supervised learning, prediction, classification, understanding datasets, feature selection, feature normalization, data cleaning, training, testing and validation sets.</p>
             <p>Different models of supervised learning, hyper parameters, measuring performance, accuracy, loss, underfitting and overfitting.</p>
             <p>Basics of unsupervised learning, different models of unsupervised learning.</p>
           </div>
-        </div>
+        </details>
 
-        <div class="syllabus-module card">
-          <h3 class="syllabus-title"><span class="syllabus-num">3</span> Neural Network</h3>
+        <details class="syllabus-module card">
+          <summary class="syllabus-title"><span class="syllabus-num">3</span> Neural Network <i class="bi bi-chevron-down syllabus-chevron"></i></summary>
           <div class="syllabus-body">
             <p>Understanding the biological brain, defining artificial neural networks (ANN), applications of ANN and DL, defining and building a perceptron, feed forward, back propagation, single-layer and multi-layer ANNs, building an ANN model, activation and loss functions, compiling and evaluating a model.</p>
             <p>Convolutional neural networks (CNN), understanding convolutions, pooling, building and fitting CNN models, evaluating model performance.</p>
             <p>Recurrent neural networks (RNN), basic architecture, applications of RNN, building and fitting RNN models, evaluating model performance. Long short term memory networks (LSTM), LSTM architecture, understanding LSTM, building LSTMs.</p>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ SECTION: Exercise ============ -->
-    <section class="section">
-      <h2 class="section-title"><i class="bi bi-pencil-square"></i> Exercise</h2>
-      <div class="main-buttons">
-        <a class="resource-button" href="https://colab.research.google.com/drive/1jcuL_LbFLsnlaxBdGkXNkNhuUc4Ip5lU?usp=sharing" target="_blank">
-          <span class="resource-label"><i class="bi bi-journal-code"></i> Practice Exercise Notebook</span>
-          <i class="bi bi-arrow-right resource-arrow"></i>
-        </a>
-      </div>
-    </section>
-
-    <!-- ============ SECTION: Python Resources ============ -->
-    <section class="section">
-      <h2 class="section-title"><i class="bi bi-book"></i> Python Resources</h2>
-      <div class="main-buttons">
-        <a class="resource-button" href="https://livinnector.github.io/live-py-tutor/#mode=edit" target="_blank">
-          <span class="resource-label"><i class="bi bi-code-slash"></i> Live Py Tutor</span>
-          <i class="bi bi-arrow-right resource-arrow"></i>
-        </a>
-        <a class="resource-button" href="https://www.py4e.com/lessons" target="_blank">
-          <span class="resource-label"><i class="bi bi-mortarboard"></i> Py4E Lessons</span>
-          <i class="bi bi-arrow-right resource-arrow"></i>
-        </a>
-        <a class="resource-button" href="https://www.geeksforgeeks.org/python/introduction-to-python/" target="_blank">
-          <span class="resource-label"><i class="bi bi-file-earmark-text"></i> GeeksforGeeks — Intro to Python</span>
-          <i class="bi bi-arrow-right resource-arrow"></i>
-        </a>
-        <a class="resource-button" href="https://www.w3schools.com/python/python_reference.asp" target="_blank">
-          <span class="resource-label"><i class="bi bi-file-earmark-text"></i> W3Schools — Python Reference</span>
-          <i class="bi bi-arrow-right resource-arrow"></i>
-        </a>
+        </details>
       </div>
     </section>
 
@@ -572,6 +599,29 @@
           <span class="legend-item"><span class="legend-swatch remedial-day"></span> Remedial class</span>
         </div>
       </div>
+    </section>
+
+    <!-- ============ SECTION: References ============ -->
+    <section class="section">
+      <h2 class="section-title"><i class="bi bi-book"></i> References</h2>
+      <!-- Copy this <a class="inline-link"> block to add another reference link -->
+      <p class="reference-links">
+        <a class="inline-link" href="https://livinnector.github.io/live-py-tutor/#mode=edit" target="_blank">
+          <i class="bi bi-code-slash"></i> Live Py Tutor
+        </a>
+        <a class="inline-link" href="https://www.py4e.com/lessons" target="_blank">
+          <i class="bi bi-mortarboard"></i> Py4E Lessons
+        </a>
+        <a class="inline-link" href="https://www.geeksforgeeks.org/python/introduction-to-python/" target="_blank">
+          <i class="bi bi-file-earmark-text"></i> GeeksforGeeks — Intro to Python
+        </a>
+        <a class="inline-link" href="https://www.geeksforgeeks.org/artificial-intelligence/artificial-intelligence/" target="_blank">
+          <i class="bi bi-file-earmark-text"></i> GeeksforGeeks — Intro to AI
+        </a>
+        <a class="inline-link" href="https://www.w3schools.com/python/python_reference.asp" target="_blank">
+          <i class="bi bi-file-earmark-text"></i> W3Schools — Python Reference
+        </a>
+      </p>
     </section>
 
     <p id="last-updated" class="last-updated"></p>
