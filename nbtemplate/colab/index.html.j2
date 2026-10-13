@@ -113,11 +113,23 @@ main {
 }
 .jp-RenderedHTMLCommon thead th { background: var(--colab-code-bg); font-weight: 500; }
 
-/* Errors / stderr */
+/* Empty outputs keep a visible height so the bar doesn't collapse */
+.jp-OutputArea-output { min-height: 28px; box-sizing: border-box; }
+
+/* Errors (tracebacks) and stderr: soft red panel with a red bar */
 .jp-OutputArea-output[data-mime-type="application/vnd.jupyter.stderr"] {
-  background: #fef7e0;
-  border-left-color: #ea8600;
+  background: #fce8e6;
+  border-left-color: #d93025;
+  color: #5f2120;
 }
+/* ANSI colours tuned for readability on the light panels */
+.ansi-red-fg, .ansi-red-intense-fg { color: #c5221f; font-weight: 500; }
+.ansi-green-fg, .ansi-green-intense-fg { color: #137333; }
+.ansi-blue-fg, .ansi-blue-intense-fg { color: #1967d2; }
+.ansi-cyan-fg, .ansi-cyan-intense-fg { color: #0b7285; }
+.ansi-yellow-fg, .ansi-yellow-intense-fg { color: #b06000; }
+.ansi-magenta-fg, .ansi-magenta-intense-fg { color: #8430ce; }
+.ansi-bold { font-weight: 700; }
 
 @media (max-width: 600px) {
   main { padding: 12px 10px 60px; }
