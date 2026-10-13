@@ -56,6 +56,13 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: Convert notebooks to HTML
+        run: |
+          pip install nbconvert
+          jupyter nbconvert --to html --template colab --template-file index.html.j2 \
+            --TemplateExporter.extra_template_basedirs=nbtemplate \
+            --output-dir notebooks-html Notebooks/*.ipynb
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

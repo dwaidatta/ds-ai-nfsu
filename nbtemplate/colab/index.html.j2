@@ -1,0 +1,126 @@
+{%- extends 'lab/index.html.j2' -%}
+
+{%- block html_head_css -%}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style type="text/css">
+/* Colab-like look: white page, Roboto text, grey code boxes, plain outputs */
+:root {
+  --colab-bg: #ffffff;
+  --colab-text: #202124;
+  --colab-muted: #5f6368;
+  --colab-code-bg: #f8f9fa;
+  --colab-border: #dadce0;
+  --colab-accent: #f9ab00;
+  --colab-link: #1a73e8;
+  --jp-content-font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --jp-code-font-family: 'Roboto Mono', Menlo, Consolas, monospace;
+  --jp-code-font-size: 13px;
+  --jp-code-line-height: 1.5;
+  --jp-content-font-size1: 15px;
+}
+html, body { background: var(--colab-bg); }
+body.jp-Notebook {
+  color: var(--colab-text);
+  font-family: var(--jp-content-font-family);
+  padding: 0;
+}
+main {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 24px 20px 80px;
+}
+
+/* Markdown cells */
+.jp-RenderedMarkdown { line-height: 1.6; font-size: 15px; }
+.jp-RenderedMarkdown h1, .jp-RenderedMarkdown h2, .jp-RenderedMarkdown h3,
+.jp-RenderedMarkdown h4 {
+  font-family: var(--jp-content-font-family);
+  font-weight: 500;
+  color: var(--colab-text);
+  margin: 1.4em 0 0.5em;
+}
+.jp-RenderedMarkdown h1 { font-size: 2em; padding-bottom: 0.3em; border-bottom: 1px solid var(--colab-border); }
+.jp-RenderedMarkdown h2 { font-size: 1.5em; padding-bottom: 0.2em; border-bottom: 1px solid var(--colab-border); }
+.jp-RenderedMarkdown a { color: var(--colab-link); text-decoration: none; }
+.jp-RenderedMarkdown a:hover { text-decoration: underline; }
+.jp-RenderedMarkdown code {
+  background: #f1f3f4;
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-family: var(--jp-code-font-family);
+  font-size: 0.9em;
+}
+.jp-RenderedMarkdown pre code { background: none; padding: 0; }
+.jp-RenderedMarkdown blockquote {
+  border-left: 4px solid var(--colab-border);
+  margin: 1em 0;
+  padding: 0.2em 1em;
+  color: var(--colab-muted);
+}
+.jp-RenderedMarkdown table { border-collapse: collapse; margin: 1em 0; }
+.jp-RenderedMarkdown th, .jp-RenderedMarkdown td {
+  border: 1px solid var(--colab-border);
+  padding: 6px 12px;
+}
+.jp-RenderedMarkdown th { background: var(--colab-code-bg); font-weight: 500; }
+.jp-RenderedMarkdown img { max-width: 100%; }
+
+/* Markdown cells: plain text on white, no box */
+.jp-MarkdownCell .jp-InputArea, .jp-MarkdownCell .jp-InputArea-editor,
+.jp-MarkdownCell .jp-RenderedMarkdown { background: transparent; border: none; }
+.jp-MarkdownCell { margin: 4px 0; }
+.jp-RenderedMarkdown th, .jp-RenderedMarkdown td { text-align: left !important; }
+
+/* Code cells */
+.jp-CodeCell { margin: 14px 0; }
+.jp-CodeCell .jp-InputArea {
+  border: 1px solid var(--colab-border);
+  border-radius: 4px;
+  background: var(--colab-code-bg);
+}
+.jp-InputArea-editor {
+  background: transparent !important;
+  border: none !important;
+}
+.jp-InputArea-prompt, .jp-OutputArea-prompt { display: none; }
+.jp-InputArea-editor pre, .highlight pre {
+  font-family: var(--jp-code-font-family);
+  font-size: var(--jp-code-font-size);
+  line-height: var(--jp-code-line-height);
+}
+.jp-InputArea-editor .highlight { padding: 6px 10px; background: transparent; }
+
+/* Outputs: plain, indented under the code cell with a thin accent bar */
+.jp-OutputArea { margin: 6px 0 0; }
+.jp-OutputArea-child { padding-left: 0; }
+.jp-OutputArea-output {
+  font-family: var(--jp-code-font-family);
+  font-size: var(--jp-code-font-size);
+  padding: 4px 10px;
+  border-left: 3px solid var(--colab-accent);
+  background: #fff;
+}
+.jp-OutputArea-output img { max-width: 100%; height: auto; }
+.jp-OutputArea-output[data-mime-type="text/html"] table,
+.jp-RenderedHTMLCommon table { font-family: 'Roboto', Arial, sans-serif; }
+.jp-RenderedHTMLCommon table { border-collapse: collapse; border: none; font-size: 13px; }
+.jp-RenderedHTMLCommon th, .jp-RenderedHTMLCommon td {
+  border: 1px solid var(--colab-border);
+  padding: 4px 10px;
+  text-align: right;
+}
+.jp-RenderedHTMLCommon thead th { background: var(--colab-code-bg); font-weight: 500; }
+
+/* Errors / stderr */
+.jp-OutputArea-output[data-mime-type="application/vnd.jupyter.stderr"] {
+  background: #fef7e0;
+  border-left-color: #ea8600;
+}
+
+@media (max-width: 600px) {
+  main { padding: 12px 10px 60px; }
+}
+</style>
+{%- endblock html_head_css -%}
