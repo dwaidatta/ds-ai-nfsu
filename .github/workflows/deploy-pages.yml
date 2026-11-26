@@ -1,6 +1,11 @@
-name: Deploy GitHub Pages (Manual)
+name: Deploy GitHub Pages
 
+# A push to main deploys the site and bumps the patch version.
+# A manual run can bump the patch, minor or major version.
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       bump:
@@ -36,7 +41,7 @@ jobs:
         id: version
         env:
           GH_TOKEN: ${{ github.token }}
-          BUMP: ${{ inputs.bump }}
+          BUMP: ${{ inputs.bump || 'patch' }}
         run: |
           CURRENT=$(gh release view --json tagName -q .tagName 2>/dev/null || echo "v0.0.0")
           CURRENT=${CURRENT#v}
