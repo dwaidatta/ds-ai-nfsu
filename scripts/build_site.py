@@ -1,6 +1,6 @@
 """Build the GitHub Pages site into _site/.
 
-Copies index.html and quiz/, converts every notebook in Notebooks/ to HTML and
+Copies index.html, quiz/ and notes/, converts every notebook in Notebooks/ to HTML and
 fills the Study Notebooks list in index.html from those notebooks.
 """
 import html
@@ -36,6 +36,7 @@ def main() -> None:
     OUT.mkdir()
     shutil.copy(ROOT / "index.html", OUT / "index.html")
     shutil.copytree(ROOT / "quiz", OUT / "quiz")
+    shutil.copytree(ROOT / "notes", OUT / "notes")
     (OUT / ".nojekyll").touch()
 
     notebooks = sorted(NOTEBOOKS.glob("*.ipynb"))
